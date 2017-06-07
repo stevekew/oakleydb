@@ -43,7 +43,7 @@ class StyleDal(object):
         return styles
 
     def get_style(self, style_name):
-        style_query = ("SELECT id, name FROM style "
+        style_query = ("SELECT id, name, url FROM style "
                         "WHERE name = %s "
                         "AND validfrom < %s "
                         "AND ((validto = '0000-00-00 00:00:00') OR (validto >= %s))")
@@ -61,10 +61,11 @@ class StyleDal(object):
         cursor.execute(style_query, style_data)
 
         style = {}
-        for (s_id, s_name) in cursor:
+        for (s_id, s_name, s_url) in cursor:
             if s_name == style_name:
                 style['id'] = s_id
                 style['name'] = s_name
+                style['url'] = s_url
 
         cursor.close()
         self.connection_pool.release_connection(cnx)

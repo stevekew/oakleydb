@@ -3,16 +3,22 @@ from oakleydbdal.styledal import StyleDal
 from oakleydbdal.modeldal import ModelDal
 from oakleydbdal.connectionpool import ConnectionPool
 from core import settings
+from core.logger import Logger
 from loaders import loaderfactory
 
 settings.LOGGING_FILENAME = 'data_loader'
 
+logger = Logger('data_loader').get()
 
+logger.info('Setting up connection pool...')
 cnx_pool = ConnectionPool(settings.db_config)
+
+logger.info('Creating data access layer...')
 dal = ModelDal(cnx_pool)
 sd = StyleDal(cnx_pool)
 # dal = FamilyDal(cnx_pool)
 
+logger.info('Creating data loader with data loader name [{}]'.format(loaderfactory.OREVIEWV1_LOADER))
 data_loader = loaderfactory.get_loader(loaderfactory.OREVIEWV1_LOADER)
 
 # families = data_loader.get_family_list()
@@ -22,15 +28,31 @@ data_loader = loaderfactory.get_loader(loaderfactory.OREVIEWV1_LOADER)
 # styles = data_loader.get_style_list()
 
 # print styles
+logger.info('Retrieving styles...')
 styles = sd.get_all_styles()
+logger.info('Got [{}] styles'.format(len(styles)))
 
-for style in styles:
-    models = data_loader.get_models_for_style(style['url'])
-    # print models
-    for model in models:
-        if not dal.model_exists(model['name']):
-            print model['name']
-            dal.insert_model(model['name'], style['id'], model['sku'], model['listprice'], model['url'], 1)
+# for style in styles:
+style = sd.get_style('Dangerous (Asian Fit)')
+models = data_loader.get_models_for_style(style['url'])
+# print models
+for model in models:
+    if not dal.model_exists(model['name']):
+        print model['name']
+        dal.insert_model(model['name'], style['id'], model['sku'], model['listprice'], model['url'], 1)
+        logger.info('Inserted model with name [{}]'.format(model['name']))
+    else:
+        msg = 'Model with name [{}] already exists in the database, ignoring...'.format(model['name'])
+        print msg
+        logger.info(msg)
+
+#             print model['name']
+#             dal.insert_model(model['name'], style['id'], model['sku'], model['listprice'], model['url'], 1)
+#             logger.info('Inserted model with name [{}]'.format(model['name']))
+#         else:
+#             msg = 'Model with name [{}] already exists in the database, ignoring...'.format(model['name'])
+#             print msg
+#             logger.info(msg)
 
 # ex = dal.family_exists('X-Metal')
 # print ex
@@ -48,5 +70,3 @@ for style in styles:
 #
 # sid = sdal.get_last_style_id()
 # print sid
-
-
