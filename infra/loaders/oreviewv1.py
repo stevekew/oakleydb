@@ -1,6 +1,6 @@
 import urllib2
 from bs4 import BeautifulSoup
-from core import archivedotcom
+from core.archivedotcom import ArchiveDotOrg
 from core.logger import Logger
 
 # loader constants
@@ -34,6 +34,7 @@ class OReviewLoaderV1(object):
 
     def __init__(self):
         self.logger = Logger(self.__class__.__name__).get()
+        self.wayback = ArchiveDotOrg()
 
     @staticmethod
     def get_name():
@@ -45,12 +46,12 @@ class OReviewLoaderV1(object):
     def get_style_list(self):
         return self.parse_glasses_list_page_styles(GLASSES_URL)
 
-    def get_models_for_style(self, url):
-        return self.parse_models_page(url)
+    def get_models_for_style(self, style_name, url):
+        return self.parse_models_page(style_name, url)
 
-    def get_oreview_data_table(self, url):
+    def get_oreview_body_div(self, url):
         #  use the wayback api to work out the best cached copy for this page
-        archive_url = archivedotcom.find_archive_url(url)
+        archive_url = self.wayback.find_archive_url(url)
         self.logger.info("Found archive URL: [{}]".format(archive_url))
 
         response = urllib2.urlopen(archive_url)
@@ -63,6 +64,13 @@ class OReviewLoaderV1(object):
 
         # find the fiv that holds the details table
         div = soup.body.find(HTML_DIV_NODE, attrs={HTML_CLASS_ATTRIBUTE: BODYTABLE_CLASS_NAME})
+
+        return div
+
+    def get_oreview_data_table(self, url):
+
+        # get the main body div that contains the table
+        div = self.get_oreview_body_div(url)
 
         # get the table
         table = div.find(HTML_TABLE_NODE)
@@ -122,8 +130,8 @@ class OReviewLoaderV1(object):
 
         return styles
 
-    def parse_models_page(self, url):
-        table = self.get_oreview_data_table(url)\
+    def parse_models_page(self, style_name, url):
+        table = self.get_oreview_data_table(url)
 
         if table is None:
             self.logger.error('Failed to find a data table for url [{}]'.format(url))
@@ -138,10 +146,14 @@ class OReviewLoaderV1(object):
             model = {}
             cols = row.find_all(HTML_TABLECOL_NODE)
             name = ''
-            if cols[0].img is not None:
-                name = cols[0].img.attrs[HTML_ALT_ATTRIBUTE]
+            if cols[1].a is not None:
+                name = cols[1].a.string
 
-            model['name'] = unicode(name)
+            if unicode(name) == '':
+                self.logger.error('No model name found for row [{}]'.format(row))
+                continue
+
+            model['name'] = '{} {}'.format(style_name, unicode(name))
             model['listprice'] = unicode(cols[2].string)
             model_url = SITE_URL + '/' + cols[1].a[HTML_HREF_ATTRIBUTE]
             model['url'] = unicode(model_url)

@@ -32,19 +32,21 @@ logger.info('Retrieving styles...')
 styles = sd.get_all_styles()
 logger.info('Got [{}] styles'.format(len(styles)))
 
-# for style in styles:
-style = sd.get_style('Dangerous (Asian Fit)')
-models = data_loader.get_models_for_style(style['url'])
-# print models
-for model in models:
-    if not dal.model_exists(model['name']):
-        print model['name']
-        dal.insert_model(model['name'], style['id'], model['sku'], model['listprice'], model['url'], 1)
-        logger.info('Inserted model with name [{}]'.format(model['name']))
-    else:
-        msg = 'Model with name [{}] already exists in the database, ignoring...'.format(model['name'])
-        print msg
-        logger.info(msg)
+# style = sd.get_style('Dangerous (Asian Fit)')
+
+for style in styles:
+    models = data_loader.get_models_for_style(style['name'], style['url'])
+
+    for model in models:
+
+        if not dal.model_exists(model['name']):
+            print model['name']
+            dal.insert_model(model['name'], style['id'], model['sku'], model['listprice'], model['url'], 1)
+            logger.info('Inserted model with name [{}]'.format(model['name']))
+        else:
+            msg = 'Model with name [{}] already exists in the database, ignoring...'.format(model['name'])
+            print msg
+            logger.info(msg)
 
 #             print model['name']
 #             dal.insert_model(model['name'], style['id'], model['sku'], model['listprice'], model['url'], 1)
