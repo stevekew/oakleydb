@@ -1,0 +1,13 @@
+import logging
+
+LOGGING_DIR='./'
+LOGGING_FILENAME='logfile'
+DEBUG_LEVEL=logging.INFO
+
+db_config = {
+  'user': '',
+  'password': '',
+  'host': '',
+  'database': '',
+  'raise_on_warnings': True,
+}

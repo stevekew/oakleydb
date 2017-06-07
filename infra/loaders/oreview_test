@@ -1,0 +1,297 @@
+import urllib2
+import json
+from bs4 import BeautifulSoup
+import mysql.connector
+import time
+
+from core import archivedotcom
+from core.logger import Logger
+
+# archive_base_url = 'http://web.archive.org/web/{}/{}'
+logger = Logger("oreviewv1").get()
+
+# def is_valid_archive_url(url, date):
+#     archive_url = archive_base_url.format(date, url)
+#
+#     try:
+#         response = urllib2.urlopen(archive_url)
+#     except urllib2.HTTPError, e:
+#         return False
+#
+#     html_doc = response.read()
+#
+#     if '404' in html_doc:
+#         return False
+#
+#     return True
+#
+# def find_archive_url(url):
+#     archive_url = 'http://web.archive.org/cdx/search/cdx?url={}&output=json&limit=500'.format(url)
+#
+#     response = urllib2.urlopen(archive_url)
+#
+#     html_doc = response.read()
+#
+#     # print html_doc
+#     json_data = json.loads(html_doc)
+#
+#     # each json obj contains the snapshot date
+#     for d in reversed(json_data):
+#         if is_valid_archive_url(url, d[1]):
+#             return archive_base_url.format(d[1], url)
+#
+#     return None
+
+def parse_glasses_list_page(archive_url, base_url):
+    response = urllib2.urlopen(archive_url)
+
+    html_doc = response.read()
+
+    soup = BeautifulSoup(html_doc, 'html.parser')
+
+    div = soup.body.find('div', attrs={'class': 'bodytable'})
+
+    table = div.find('table')
+
+    # cats = table.find_all('td', attrs={'colspan': '3'})
+    #
+    # for cat in cats:
+    #     print cat.a.b.string
+
+    rows = table.find_all('tr')
+
+    items = []
+    range = ''
+    for row in rows:
+        # print row
+        # if len(items) == 5:
+        #     break
+
+        if row.contents[0].name == 'td':
+            cell = row.td
+            # a colspan attribute represents the collection/range
+            if 'colspan' in cell.attrs:
+                range = row.td.b.string
+            elif cell.contents[0].name == 'a':
+                link = cell.a
+
+                if 'href' in link.attrs:
+                    if link['href'].startswith('glassesmodels.asp'):
+                        models_url = base_url + '/' + link['href']
+
+                        item = {}
+                        print link.string
+                        item['Name'] = unicode(link.string)
+                        item['Range'] = unicode(range)
+                        item['Url'] = models_url
+                        items.append(item)
+    return items
+
+def parse_models_page(url):
+    response = urllib2.urlopen(url)
+
+    html_doc = response.read()
+
+    # print html_doc
+
+    soup = BeautifulSoup(html_doc, 'html.parser')
+
+    div = soup.body.find('div', attrs={'class': 'bodytable'})
+
+    table = div.find('table')
+
+    table = table.find('table')
+
+    # print table
+    rows = table.find_all('tr')
+
+    models = []
+    for row in rows:
+        model = {}
+        cols = row.find_all('td')
+        name = ''
+        if cols[0].img is not None:
+            name = cols[0].img.attrs['alt']
+
+        model['Name'] = name
+        vals=cols[1].a.string.split('/')
+        lens = vals[len(vals) - 1]
+        frame = str.replace(str(cols[1].a.string), '/' + lens, '')
+        model['Frame'] = frame
+        model['Lense'] = lens
+        model['Price'] = cols[2].string
+        model['Url'] = base_url + '/' + cols[1].a['href']
+
+        sku = ''
+        if cols[3].font is not None:
+            sku = str(cols[3].font.string)
+            sku = str.replace(sku, '[', '')
+            sku = str.replace(sku, ']', '')
+
+        model['SKU'] = sku
+
+
+         # print model
+        models.append(model)
+
+    return models
+
+def parse_frame_details_page(url):
+    response = urllib2.urlopen(url)
+
+    html_doc = response.read()
+
+    # print html_doc
+
+    soup = BeautifulSoup(html_doc, 'html.parser')
+
+    div = soup.body.find('div', attrs={'class': 'bodytable'})
+
+    table = div.find('table')
+
+    # print table
+    rows = table.find_all('tr')
+
+    details = {}
+    for row in rows:
+        cols = row.find_all('td')
+        if len(cols) == 2:
+            details[cols[0].string] = cols[1].string
+        # else:
+        #     print 'Invalid details: ' + str(row)
+
+    return details
+
+logger.info("Starting O-Review Loader v1")
+base_url = 'http://www.o-review.com'
+glassesUrl = base_url + '/glasses.asp'
+# # test = 'http://o-review.com/glassesdetail.asp?ID=4506'
+#
+url = archivedotcom.find_archive_url(glassesUrl)
+#
+# print url
+#
+# glasses = []
+# if url is None:
+#     print 'error'
+# else:
+#     glasses = parse_glasses_list_page(url, base_url)
+#
+# print glasses
+
+db_config = {
+  'user': '',
+  'password': '',
+  'host': '',
+  'database': '',
+  'raise_on_warnings': True,
+}
+
+cnx = mysql.connector.connect(**db_config)
+cursor = cnx.cursor()
+
+# add_family = ("INSERT INTO family "
+#                "(id, name, sourceid, validfrom) "
+#                "VALUES (%s, %s, %s, %s)")
+#
+# add_style = ("INSERT INTO style "
+#                "(id, name, sourceid, familyid, url, validfrom) "
+#                "VALUES (%s, %s, %s, %s, %s, %s)")
+#
+# family_id = -1
+# style_id = 0
+# now = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())
+# family = ''
+# for g in glasses:
+#     if family != g['Range']:
+#         family_id += 1
+#         family = g['Range']
+#
+#         data_family = (family_id, family, 1, now)
+#         cursor.execute(add_family, data_family)
+#
+#     data_style = (style_id, g['Name'], 1, family_id, g['Url'], now)
+#     cursor.execute(add_style, data_style)
+#     style_id += 1
+#
+# cnx.commit()
+# cursor.close()
+
+
+family_query = ("SELECT id, name FROM family "
+                "WHERE name = %s "
+                "AND validfrom < %s "
+                "AND ((validto = '0000-00-00 00:00:00') OR (validto >= %s))")
+
+now = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())
+
+family_name = 'X-Metal'
+family_data = (family_name, now, now)
+logger.info("Executing Query")
+cursor.execute(family_query, family_data)
+
+for (id, name) in cursor:
+    logger.info("{}, {}".format(id, name))
+
+cursor.close()
+cnx.close()
+
+logger.info("Done")
+# print glasses
+# Range
+#   Model
+#     Colourway [SKU]
+#        Frame
+#        Lense
+#        Price
+#        SKU
+#        Release Date
+#        Retire Date
+
+
+# loop through the glasses and pull down the models page
+# for frame in glasses:
+#     models = parse_models_page(find_archive_url(frame['Url']))
+#     frame['Models'] = models
+#
+#     for model in models:
+#         details = parse_frame_details_page(find_archive_url(model['Url']))
+#         model['Details'] = details
+# range = ''
+# for frame in glasses:
+#     if frame['Range'] != range:
+#         range = frame['Range']
+#         print '--- ' + range + ' ---'
+#
+#     print '\t' + frame['Name']
+#
+#     models = frame['Models']
+#     for model in models:
+#         print '\t\t' + model['Name'] + ' [' + model['SKU'] + ']'
+#
+#         details = model['Details']
+#         print '\t\t\t Frame:' + details['Frame']
+#         print '\t\t\t Lens:' + details['Lens']
+#         print '\t\t\t Price:' + details['USD']
+#         print '\t\t\t SKU:' + details['SKU#']
+#         print '\t\t\t Released:' + details['Release Date:']
+#         print '\t\t\t Retired:' + details['Retire Date:']
+#
+#         if details['Signature']:
+#             print ' *** Signature:' + details['Signature']
+
+
+
+
+# wb = wayback.Wayback()
+# latestSnapshotDate = '20120505040920'
+# url = wb.closest(glassesUrl, latestSnapshotDate)
+# print url
+
+# baseUrl = 'http://www.o-review.com'
+#     glassesUrl = baseUrl + '/glasses.asp'
+# latestSnapshotDate = '20120505040920'
+#
+# wb = wayback.Wayback()
+#
+# url = wb.closest(glassesUrl, latestSnapshotDate)

@@ -1,0 +1,5 @@
+etc/
+*.log
+*.pyc
+infra/.idea/
+infra/core/settings.py
