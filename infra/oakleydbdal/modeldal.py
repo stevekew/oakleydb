@@ -65,10 +65,12 @@ class ModelDal(object):
 
         return ret_id
 
-    def insert_model(self, model_name, style_id, model_sku, model_listprice, model_url, source_id):
+    def insert_model(self, style_id, model_name, model_sku, model_framecolour, model_lens, fit_id, model_listprice,
+                     model_url, source_id):
+
         add_model = ("INSERT INTO model "
-                      "(id, name, styleid, sku, listprice, url, sourceid, validfrom) "
-                      "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)")
+                      "(id, name, styleid, sku, listprice, url, framecolour, lens, fitid, sourceid, validfrom) "
+                      "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
 
         now = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())
 
@@ -77,7 +79,7 @@ class ModelDal(object):
         cnx = self.connection_pool.get_connection()
         cursor = cnx.cursor()
 
-        data_model = (model_id, model_name, style_id, model_sku, model_listprice, model_url, source_id, now)
+        data_model = (model_id, model_name, style_id, model_sku, model_listprice, model_url, model_framecolour, model_lens, fit_id, source_id, now)
         cursor.execute(add_model, data_model)
 
         cnx.commit()

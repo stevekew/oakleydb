@@ -52,6 +52,11 @@ class OReviewLoaderV1(object):
     def get_oreview_body_div(self, url):
         #  use the wayback api to work out the best cached copy for this page
         archive_url = self.wayback.find_archive_url(url)
+
+        if archive_url is None:
+            self.logger.error("Found no archive URL for: [{}]".format(url))
+            return None
+
         self.logger.info("Found archive URL: [{}]".format(archive_url))
 
         response = urllib2.urlopen(archive_url)
@@ -72,6 +77,9 @@ class OReviewLoaderV1(object):
         # get the main body div that contains the table
         div = self.get_oreview_body_div(url)
 
+        if div is None:
+            return None
+
         # get the table
         table = div.find(HTML_TABLE_NODE)
 
@@ -79,6 +87,10 @@ class OReviewLoaderV1(object):
 
     def parse_glasses_list_page_families(self, url):
         table = self.get_oreview_data_table(url)
+
+        if table is None:
+            self.logger.error('Failed to find a data table for url [{}]'.format(url))
+            return {}
 
         # select out all the rows
         rows = table.find_all(HTML_TABLEROW_NODE)
@@ -100,6 +112,10 @@ class OReviewLoaderV1(object):
 
     def parse_glasses_list_page_styles(self, url):
         table = self.get_oreview_data_table(url)
+
+        if table is None:
+            self.logger.error('Failed to find a data table for list page with url [{}]'.format(url))
+            return {}
 
         # select out all the rows
         rows = table.find_all(HTML_TABLEROW_NODE)
@@ -134,7 +150,7 @@ class OReviewLoaderV1(object):
         table = self.get_oreview_data_table(url)
 
         if table is None:
-            self.logger.error('Failed to find a data table for url [{}]'.format(url))
+            self.logger.error('Failed to find a data table for models page with url [{}]'.format(url))
             return {}
 
         table = table.find(HTML_TABLE_NODE)
@@ -143,20 +159,19 @@ class OReviewLoaderV1(object):
 
         models = []
         for row in rows:
-            model = {}
             cols = row.find_all(HTML_TABLECOL_NODE)
             name = ''
             if cols[1].a is not None:
                 name = cols[1].a.string
 
             if unicode(name) == '':
-                self.logger.error('No model name found for row [{}]'.format(row))
+                self.logger.error('No model name found for row [{}]. Skipping...'.format(row))
                 continue
 
-            model['name'] = '{} {}'.format(style_name, unicode(name))
-            model['listprice'] = unicode(cols[2].string)
             model_url = SITE_URL + '/' + cols[1].a[HTML_HREF_ATTRIBUTE]
-            model['url'] = unicode(model_url)
+
+            model = {'name': '{} {}'.format(style_name, unicode(name)), 'listprice': unicode(cols[2].string),
+                     'url': unicode(model_url)}
 
             sku = ''
             if cols[3].font is not None:
@@ -166,6 +181,60 @@ class OReviewLoaderV1(object):
 
             model['sku'] = unicode(sku)
 
+            model_details = self.parse_frame_details_page(model_url)
+
+            # confirm the SKUs match before processing
+            process_details = False
+            if 'SKU#' in model_details:
+                if model['sku'] == model_details['SKU#']:
+                    process_details = True
+                else:
+                    self.logger.error(
+                        "SKU for model [{}] ([{}]) does not match SKU for model details [{}]. Not processing model details".
+                        format(model['name'], model['sku'], model['SKU#']))
+            else:
+                self.logger.error("No SKU found for model details page with URL [{}]".format(model['url']))
+
+            if process_details:
+                if 'Frame' in model_details: model['frame'] = model_details['Frame']
+                if 'Lens' in model_details: model['lens'] = model_details['Lens']
+                if 'Release Date' in model_details: model['releasedate'] = model_details['Release Date']
+                if 'Retire Date' in model_details: model['retiredate'] = model_details['Retire Date']
+                # if '' in model_details: model[''] = model_details['Model']
+                # if '' in model_details: model[''] = model_details['SKU#']
+                # if '' in model_details: model[''] = model_details['UPC']
+                # if '' in model_details: model[''] = model_details['USD']
+            else:
+                model['frame'] = ''
+                model['lens'] = ''
+                model['releasedate'] = ''
+                model['retiredate'] = ''
+
             models.append(model)
 
         return models
+
+    def parse_frame_details_page(self, url):
+        body_table = self.get_oreview_data_table(url)
+
+        if body_table is None:
+            self.logger.error('Failed to find a data table for frame details page with url [{}]'.format(url))
+            return {}
+
+        table = body_table.find(HTML_TABLE_NODE)
+
+        if table is None:
+            table = body_table
+
+        # print table
+        rows = table.find_all(HTML_TABLEROW_NODE)
+
+        details = {}
+        for row in rows:
+            cols = row.find_all(HTML_TABLECOL_NODE)
+
+            # only take rows with a key and value column
+            if len(cols) == 2:
+                details[unicode(cols[0].string)] = unicode(cols[1].string)
+
+        return details
