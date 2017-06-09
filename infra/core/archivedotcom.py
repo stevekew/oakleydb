@@ -28,11 +28,19 @@ class ArchiveDotOrg(object):
 
         return True
 
+    def remove_spaces(self, url):
+        return url.replace(" ", "%20")
+
     def find_archive_url(self, url):
         archive_url = 'http://web.archive.org/cdx/search/cdx?url={}&output=json&limit=500'.format(url)
 
         self.logger.info("Searching for latest archived page for URL [{}]".format(url))
-        response = urllib2.urlopen(archive_url)
+
+        try:
+            response = urllib2.urlopen(self.remove_spaces(archive_url))
+        except urllib2.HTTPError, e:
+            self.logger.info("Failed to open URL [{}]: [{}]".format(archive_url, e))
+            return None
 
         html_doc = response.read()
 
