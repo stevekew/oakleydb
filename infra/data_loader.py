@@ -40,29 +40,29 @@ process = False
 
 for style in styles:
 
-    # if style['family'] == 'Arrays':
-    #     process = True
-    #
-    # if process:
-    models = data_loader.get_models_for_style(style['name'], style['url'])
+    if style['name'] == 'Dartboard L':
+        process = True
 
-    for model in models:
+    if process:
+        models = data_loader.get_models_for_style(style['name'], style['url'])
 
-        if not dal.model_exists(model['name']):
-            print model['name']
+        for model in models:
 
-            fit_id = 0
+            if not dal.model_exists(model['name']):
+                print model['name']
 
-            if 'Asian' in model['name']:
-                fit_id = 1
+                fit_id = 0
 
-            dal.insert_model(style['id'], model['name'], model['sku'], model['frame'], model['lens'], fit_id,
-                             model['listprice'], model['url'], 1)
-            logger.info('Inserted model with name [{}]'.format(model['name']))
-        else:
-            msg = 'Model with name [{}] already exists in the database, ignoring...'.format(model['name'])
-            print msg
-            logger.info(msg)
+                if 'Asian' in model['name']:
+                    fit_id = 1
+
+                dal.insert_model(style['id'], model['name'], model['sku'], model['frame'], model['lens'], fit_id,
+                                 model['listprice'], model['url'], 1)
+                logger.info('Inserted model with name [{}]'.format(model['name']))
+            else:
+                msg = 'Model with name [{}] already exists in the database, ignoring...'.format(model['name'])
+                print msg
+                logger.info(msg)
 
 #             print model['name']
 #             dal.insert_model(model['name'], style['id'], model['sku'], model['listprice'], model['url'], 1)
