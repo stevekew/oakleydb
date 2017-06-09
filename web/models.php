@@ -51,12 +51,10 @@ if ($result === false)
     <body>
         <h2>Oakley DB</h2>
         <ul>
-<?php while ($row = $statement->fetch(PDO::FETCH_ASSOC)): ?>
-        <li><?php 
-            echo  htmlentities($row['name']).' ['.htmlentities($row['sku']).']'; ?>
-        </li>
-
-<?php endwhile ?>
+<?php while ($row = $statement->fetch(PDO::FETCH_ASSOC)):
+            echo '<li><a href="details.php?id='.htmlentities($row['id']).'">'.htmlentities($row['name']).'</a> ['.htmlentities($row['sku']).']</li>';
+endwhile ?>
         </ul>
    </body>
 </html>
+
