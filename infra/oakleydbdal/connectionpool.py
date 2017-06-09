@@ -24,6 +24,9 @@ class ConnectionPool(object):
         if self.is_initialised:
             conn = self.connections.get()
 
+            if not conn.is_connected():
+                conn.reconnect()
+
             return conn
 
     def release_connection(self, connection):
