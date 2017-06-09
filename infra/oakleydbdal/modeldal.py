@@ -20,7 +20,7 @@ class ModelDal(object):
         model_query = ("SELECT id, name, sku, listprice, url FROM model "
                         "WHERE name = %s "
                         "AND validfrom < %s "
-                        "AND ((validto = '0000-00-00 00:00:00') OR (validto >= %s))")
+                        "AND ((validto is null) OR (validto >= %s))")
 
         now = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())
 
