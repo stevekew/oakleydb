@@ -23,7 +23,7 @@ class ArchiveDotOrg(object):
         html_doc = response.read()
 
         if ERROR_404 in html_doc:
-            self.logger.info("Archive URL [{}] is not valid as it contains 404: [{}]".format(archive_url, html_doc))
+            self.logger.debug("Archive URL [{}] is not valid as it contains 404:\n[{}]".format(archive_url, html_doc))
             return False
 
         return True
@@ -46,6 +46,9 @@ class ArchiveDotOrg(object):
 
         # print html_doc
         json_data = json.loads(html_doc)
+
+        if len(json_data) == 0:
+            self.logger.error("Failed to find a cached copy for url [{}]".format(url))
 
         # each json obj contains the snapshot date
         for d in reversed(json_data):
