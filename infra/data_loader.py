@@ -33,20 +33,29 @@ styles = sd.get_all_styles()
 logger.info('Got [{}] styles'.format(len(styles)))
 
 # style = sd.get_style('Dangerous (Asian Fit)')
+process = False
+
+# need to find a better way to process all models as it takes too long
+# perhaps load all modesl from db and then match in code
 
 for style in styles:
-    models = data_loader.get_models_for_style(style['name'], style['url'])
 
-    for model in models:
+    if style['family'] == 'Arrays':
+        process = True
 
-        if not dal.model_exists(model['name']):
-            print model['name']
-            dal.insert_model(model['name'], style['id'], model['sku'], model['listprice'], model['url'], 1)
-            logger.info('Inserted model with name [{}]'.format(model['name']))
-        else:
-            msg = 'Model with name [{}] already exists in the database, ignoring...'.format(model['name'])
-            print msg
-            logger.info(msg)
+    if process:
+        models = data_loader.get_models_for_style(style['name'], style['url'])
+
+        for model in models:
+
+            if not dal.model_exists(model['name']):
+                print model['name']
+                dal.insert_model(model['name'], style['id'], model['sku'], model['listprice'], model['url'], 1)
+                logger.info('Inserted model with name [{}]'.format(model['name']))
+            else:
+                msg = 'Model with name [{}] already exists in the database, ignoring...'.format(model['name'])
+                print msg
+                logger.info(msg)
 
 #             print model['name']
 #             dal.insert_model(model['name'], style['id'], model['sku'], model['listprice'], model['url'], 1)
