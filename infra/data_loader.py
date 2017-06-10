@@ -1,6 +1,7 @@
 from oakleydbdal.familydal import FamilyDal
 from oakleydbdal.styledal import StyleDal
 from oakleydbdal.modeldal import ModelDal
+from oakleydbdal.lensdal import LensDal
 from oakleydbdal.connectionpool import ConnectionPool
 from core import settings
 from core.logger import Logger
@@ -16,6 +17,7 @@ cnx_pool = ConnectionPool(settings.db_config)
 logger.info('Creating data access layer...')
 dal = ModelDal(cnx_pool)
 sd = StyleDal(cnx_pool)
+lens_dal = LensDal(cnx_pool)
 # dal = FamilyDal(cnx_pool)
 
 logger.info('Creating data loader with data loader name [{}]'.format(loaderfactory.OREVIEWV1_LOADER))
@@ -28,41 +30,68 @@ data_loader = loaderfactory.get_loader(loaderfactory.OREVIEWV1_LOADER)
 # styles = data_loader.get_style_list()
 
 # print styles
-logger.info('Retrieving styles...')
-styles = sd.get_all_styles()
-logger.info('Got [{}] styles'.format(len(styles)))
+# logger.info('Retrieving styles...')
+# styles = sd.get_all_styles()
+# logger.info('Got [{}] styles'.format(len(styles)))
 
-# style = sd.get_style('Dangerous (Asian Fit)')
+
+lenses = data_loader.get_lens_list()
+
+# lens_details = data_loader.get_lens_details({'name': 'VR50-Brown Gradient', 'lenstype': 'Gradient', 'url': 'http://www.o-review.com/lensdetail.asp?ID=2556'})
+
 process = False
 
-# need to find a better way to process all models as it takes too long
-# perhaps load all modesl from db and then match in code
+for lens in lenses:
 
-for style in styles:
-
-    if style['name'] == 'Dartboard L':
+    if lens['lenstype'] == 'Gradient':
         process = True
 
     if process:
-        models = data_loader.get_models_for_style(style['name'], style['url'])
+        lens_details = data_loader.get_lens_details(lens)
 
-        for model in models:
+        if not lens_dal.lens_type_exists(lens_details['lenstype']):
+            lens_type = lens_details['lenstype']
+            print 'Inserting lens type: [{}]'.format(lens_type)
+            lens_dal.insert_lens_type(lens_type, 1)
 
-            if not dal.model_exists(model['name']):
-                print model['name']
+        if lens_details['typeid'] == -1:
+            lens_details['typeid'] = lens_dal.get_lens_type_id(lens_details['lenstype'])
 
-                fit_id = 0
+        if not lens_dal.lens_exists(lens_details):
+            lens_dal.insert_lens_details(lens_details, 1)
 
-                if 'Asian' in model['name']:
-                    fit_id = 1
 
-                dal.insert_model(style['id'], model['name'], model['sku'], model['frame'], model['lens'], fit_id,
-                                 model['listprice'], model['url'], 1)
-                logger.info('Inserted model with name [{}]'.format(model['name']))
-            else:
-                msg = 'Model with name [{}] already exists in the database, ignoring...'.format(model['name'])
-                print msg
-                logger.info(msg)
+
+# style = sd.get_style('Dangerous (Asian Fit)')
+# process = False
+#
+# # need to find a better way to process all models as it takes too long
+# # perhaps load all modesl from db and then match in code
+# for style in styles:
+#
+#     if style['name'] == 'Eye Jacket':
+#         process = True
+#
+#     if process:
+#         models = data_loader.get_models_for_style(style['name'], style['url'])
+#
+#         for model in models:
+#
+#             if not dal.model_exists(model['name']):
+#                 print model['name']
+#
+#                 fit_id = 0
+#
+#                 if 'Asian' in model['name']:
+#                     fit_id = 1
+#
+#                 dal.insert_model(style['id'], model['name'], model['sku'], model['frame'], model['lens'], fit_id,
+#                                  model['listprice'], model['url'], 1)
+#                 logger.info('Inserted model with name [{}]'.format(model['name']))
+#             else:
+#                 msg = 'Model with name [{}] already exists in the database, ignoring...'.format(model['name'])
+#                 print msg
+#                 logger.info(msg)
 
 #             print model['name']
 #             dal.insert_model(model['name'], style['id'], model['sku'], model['listprice'], model['url'], 1)

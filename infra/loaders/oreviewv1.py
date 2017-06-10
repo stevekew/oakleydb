@@ -2,6 +2,7 @@ import urllib2
 from bs4 import BeautifulSoup
 from core.archivedotcom import ArchiveDotOrg
 from core.logger import Logger
+from oakleydb.objectfactory import ObjectFactory
 
 # loader constants
 LOADER_NAME = 'O-Review Loader V1'
@@ -9,7 +10,9 @@ LOADER_NAME = 'O-Review Loader V1'
 # site constants
 SITE_URL = 'http://www.o-review.com'
 GLASSES_URL = SITE_URL + '/glasses.asp'
+LENS_LIST_URL = SITE_URL + '/lens.asp'
 GLASSES_MODELS_SUFFIX = 'glassesmodels.asp'
+LENS_DETAILS_SUFFIX = 'lensdetail.asp'
 
 # page structure constants
 BODYTABLE_CLASS_NAME = 'bodytable'
@@ -26,12 +29,12 @@ HTML_TABLEROW_NODE = 'tr'
 HTML_TABLECOL_NODE = 'td'
 
 # BeautifulSoup constants
-BS_HTML_PARSER = 'html.parser'
+BS_HTML_PARSER = 'html5lib'
+# BS_HTML_PARSER = 'html.parser'
 
 
 # This loader loads the v1 o-review pages from archive.org
 class OReviewLoaderV1(object):
-
     def __init__(self):
         self.logger = Logger(self.__class__.__name__).get()
         self.wayback = ArchiveDotOrg()
@@ -48,6 +51,12 @@ class OReviewLoaderV1(object):
 
     def get_models_for_style(self, style_name, url):
         return self.parse_models_page(style_name, url)
+
+    def get_lens_list(self):
+        return self.parse_lens_list_page(LENS_LIST_URL)
+
+    def get_lens_details(self, lens):
+        return OReviewLoaderV1.convert_to_oakleydb_lens_details(lens, self.parse_details_page(lens['url']))
 
     def get_oreview_body_div(self, url):
         #  use the wayback api to work out the best cached copy for this page
@@ -181,7 +190,7 @@ class OReviewLoaderV1(object):
 
             model['sku'] = unicode(sku)
 
-            model_details = self.parse_frame_details_page(model_url)
+            model_details = self.parse_details_page(model_url)
 
             # confirm the SKUs match before processing
             process_details = False
@@ -191,15 +200,19 @@ class OReviewLoaderV1(object):
                 else:
                     self.logger.error(
                         "SKU for model [{}] ([{}]) does not match SKU for model details [{}]. Not processing model details".
-                        format(model['name'], model['sku'], model['SKU#']))
+                            format(model['name'], model['sku'], model['SKU#']))
             else:
                 self.logger.error("No SKU found for model details page with URL [{}]".format(model['url']))
 
             if process_details:
-                if 'Frame' in model_details: model['frame'] = model_details['Frame']
-                if 'Lens' in model_details: model['lens'] = model_details['Lens']
-                if 'Release Date' in model_details: model['releasedate'] = model_details['Release Date']
-                if 'Retire Date' in model_details: model['retiredate'] = model_details['Retire Date']
+                if 'Frame' in model_details:
+                    model['frame'] = model_details['Frame']
+                if 'Lens' in model_details:
+                    model['lens'] = model_details['Lens']
+                if 'Release Date' in model_details:
+                    model['releasedate'] = model_details['Release Date']
+                if 'Retire Date' in model_details:
+                    model['retiredate'] = model_details['Retire Date']
                 # if '' in model_details: model[''] = model_details['Model']
                 # if '' in model_details: model[''] = model_details['SKU#']
                 # if '' in model_details: model[''] = model_details['UPC']
@@ -214,7 +227,7 @@ class OReviewLoaderV1(object):
 
         return models
 
-    def parse_frame_details_page(self, url):
+    def parse_details_page(self, url):
         body_table = self.get_oreview_data_table(url)
 
         if body_table is None:
@@ -235,6 +248,78 @@ class OReviewLoaderV1(object):
 
             # only take rows with a key and value column
             if len(cols) == 2:
-                details[unicode(cols[0].string)] = unicode(cols[1].string)
+                if cols[1].string is not None:
+                    details[unicode(cols[0].string)] = unicode(cols[1].string)
 
         return details
+
+    def parse_lens_list_page(self, url):
+        table = self.get_oreview_data_table(url)
+
+        if table is None:
+            self.logger.error('Failed to find a data table for lens list page with url [{}]'.format(url))
+            return {}
+
+        # select out all the rows
+        rows = table.find_all(HTML_TABLEROW_NODE)
+
+        self.logger.info("Table contains [{}] rows".format(len(rows)))
+
+        lenses = []
+        lens_type = ''
+        count = -1
+        for row in rows:
+            count += 1
+
+            # skip the first row
+            if count == 0:
+                continue
+
+            cells = row.find_all(HTML_TABLECOL_NODE)
+
+            if len(cells) == 1:
+                # category
+                lens_type = unicode(cells[0].text)
+            else:
+                lens_url = ''
+                # if cell 0 is the one with the link and the name
+                if cells[0].contents[0].name == HTML_LINK_NODE:
+                    link = cells[0].a
+
+                    if HTML_HREF_ATTRIBUTE in link.attrs:
+                        if link[HTML_HREF_ATTRIBUTE].startswith(LENS_DETAILS_SUFFIX):
+                            lens_url = SITE_URL + '/' + link[HTML_HREF_ATTRIBUTE]
+
+                lens = {'name': unicode(link.text), 'lenstype': unicode(lens_type), 'url': lens_url}
+
+                self.logger.debug(unicode("[{}]: [{}]").format(lens['name'], lens['url']))
+
+                lenses.append(lens)
+
+        return lenses
+
+    @staticmethod
+    def convert_to_oakleydb_lens_details(lens, oreview_lens_details):
+        if oreview_lens_details is None:
+            return None
+
+        lens_details = ObjectFactory.create_lens_details(lens)
+
+        if 'Lens' in oreview_lens_details:
+            lens_details['name'] = oreview_lens_details['Lens']
+        if 'Base' in oreview_lens_details:
+            lens_details['base'] = oreview_lens_details['Base']
+        if 'Coating' in oreview_lens_details:
+            lens_details['coating'] = oreview_lens_details['Coating']
+        if 'Light' in oreview_lens_details:
+            lens_details['transmission'] = oreview_lens_details['Light']
+        if 'Index' in oreview_lens_details:
+            lens_details['transindex'] = oreview_lens_details['Index']
+        if 'Purpose' in oreview_lens_details:
+            lens_details['purpose'] = oreview_lens_details['Purpose']
+        if 'Lighting' in oreview_lens_details:
+            lens_details['lighting'] = oreview_lens_details['Lighting']
+        if 'Type' in oreview_lens_details:
+            lens_details['lenstype'] = oreview_lens_details['Type']
+
+        return lens_details
