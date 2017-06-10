@@ -28,7 +28,7 @@ if ($statement === false)
         <h2>Oakley DB</h2>
         <ul>
 <?php while ($row = $statement->fetch(PDO::FETCH_ASSOC)): ?>
-        <li><?php
+        <li><?php 
             echo  htmlentities($row['name']);
             $s2 = $pdo->query('SELECT * FROM style WHERE familyid='.$row['id']);
             if ($s2 === false)
@@ -38,7 +38,7 @@ if ($statement === false)
             ?><ul><?php
             while ($r2 = $s2->fetch(PDO::FETCH_ASSOC)):
               echo '<li><a href="models.php?id='.htmlentities($r2['id']).'">'.htmlentities($r2['name']).'</a></li>';
-            endwhile
+            endwhile  
             ?></ul><?php
       ?></li>
 

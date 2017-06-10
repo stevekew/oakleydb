@@ -12,28 +12,28 @@ $pdo = new PDO($dsn, $db_user, $db_password);
 // Get the post ID
 if (isset($_GET['id']))
 {
-    $modelId = $_GET['id'];
+    $lensId = $_GET['id'];
 }
 else
 {
     // So we always have a post ID var defined
-    $modelId = 0;
+    $lensId = 0;
 }
 
-if (!is_numeric($modelId))
+if (!is_numeric($lensId))
 {
-    $modelId = 0;
+    $lensId = 0;
 }
 
 
-$statement = $pdo->prepare("SELECT * FROM model WHERE id = :id");
+$statement = $pdo->prepare("SELECT * FROM lens WHERE id = :id");
 
 if ($statement === false)
 {
     throw new Exception('There was a problem running this query');
 }
 
-$result = $statement->execute(array('id' => $modelId, ) );
+$result = $statement->execute(array('id' => $lensId, ) );
 
 if ($result === false)
 {
@@ -55,11 +55,13 @@ $row = $statement->fetch(PDO::FETCH_ASSOC);
         <br />
        <table>
 <?php
-            echo '<tr><td>Model</td><td>'.htmlentities($row['name']).'</td> </tr>';
-            echo '<tr><td>Frame</td><td>'.htmlentities($row['framecolour']).'</td> </tr>';
-            echo '<tr><td>Lens</td><td>'.htmlentities($row['lens']).'</td> </tr>';
-            echo '<tr><td>SKU</td><td>'.htmlentities($row['sku']).'</td> </tr>';
-            echo '<tr><td>List Price</td><td>'.htmlentities($row['listprice']).'</td> </tr>';
+            echo '<tr><td>Lens</td><td>'.htmlentities($row['name']).'</td> </tr>';
+            echo '<tr><td>Base</td><td>'.htmlentities($row['base']).'</td> </tr>';
+            echo '<tr><td>Coating</td><td>'.htmlentities($row['coating']).'</td> </tr>';
+            echo '<tr><td>Transmission</td><td>'.htmlentities($row['transmission']).'</td> </tr>';
+            echo '<tr><td>Index</td><td>'.htmlentities($row['transindex']).'</td> </tr>';
+	    echo '<tr><td>Purpose</td><td>'.htmlentities($row['purpose']).'</td> </tr>';
+	    echo '<tr><td>Lighting</td><td>'.htmlentities($row['lighting']).'</td> </tr>';
 ?>
         </table>
    </body>
