@@ -35,30 +35,30 @@ data_loader = loaderfactory.get_loader(loaderfactory.OREVIEWV1_LOADER)
 # logger.info('Got [{}] styles'.format(len(styles)))
 
 
-lenses = data_loader.get_lens_list()
+# lenses = data_loader.get_lens_list()
 
-# lens_details = data_loader.get_lens_details({'name': 'VR50-Brown Gradient', 'lenstype': 'Gradient', 'url': 'http://www.o-review.com/lensdetail.asp?ID=2556'})
+## lens_details = data_loader.get_lens_details({'name': 'VR50-Brown Gradient', 'lenstype': 'Gradient', 'url': 'http://www.o-review.com/lensdetail.asp?ID=2556'})
 
-process = False
-
-for lens in lenses:
-
-    if lens['lenstype'] == 'Gradient':
-        process = True
-
-    if process:
-        lens_details = data_loader.get_lens_details(lens)
-
-        if not lens_dal.lens_type_exists(lens_details['lenstype']):
-            lens_type = lens_details['lenstype']
-            print 'Inserting lens type: [{}]'.format(lens_type)
-            lens_dal.insert_lens_type(lens_type, 1)
-
-        if lens_details['typeid'] == -1:
-            lens_details['typeid'] = lens_dal.get_lens_type_id(lens_details['lenstype'])
-
-        if not lens_dal.lens_exists(lens_details):
-            lens_dal.insert_lens_details(lens_details, 1)
+# process = False
+#
+# for lens in lenses:
+#
+#     if lens['lenstype'] == 'Gradient':
+#         process = True
+#
+#     if process:
+#         lens_details = data_loader.get_lens_details(lens)
+#
+#         if not lens_dal.lens_type_exists(lens_details['lenstype']):
+#             lens_type = lens_details['lenstype']
+#             print 'Inserting lens type: [{}]'.format(lens_type)
+#             lens_dal.insert_lens_type(lens_type, 1)
+#
+#         if lens_details['typeid'] == -1:
+#             lens_details['typeid'] = lens_dal.get_lens_type_id(lens_details['lenstype'])
+#
+#         if not lens_dal.lens_exists(lens_details):
+#             lens_dal.insert_lens_details(lens_details, 1)
 
 
 
