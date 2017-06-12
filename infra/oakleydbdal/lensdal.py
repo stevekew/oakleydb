@@ -39,20 +39,20 @@ class LensDal(object):
 
         lens_details = ObjectFactory.create_lens_details({})
 
-        for (
-        lensid, lensname, base, coating, transmission, transindex, purpose, lighting, url, lenstype, typeid) in cursor:
-            if lensname == lens_name and lenstype == lens_type:
-                lens_details['id'] = lensid
-                lens_details['name'] = lensname
-                lens_details['base'] = base
-                lens_details['coating'] = coating
-                lens_details['transmission'] = transmission
-                lens_details['transindex'] = transindex
-                lens_details['purpose'] = purpose
-                lens_details['lighting'] = lighting
-                lens_details['url'] = url
-                lens_details['lenstype'] = lenstype
-                lens_details['typeid'] = typeid
+        for (c_lensid, c_lensname, c_base, c_coating, c_transmission, c_transindex, c_purpose, c_lighting, c_url,
+             c_lenstype, c_typeid) in cursor:
+            if c_lensname == lens_name and c_lenstype == lens_type:
+                lens_details['id'] = c_lensid
+                lens_details['name'] = c_lensname
+                lens_details['base'] = c_base
+                lens_details['coating'] = c_coating
+                lens_details['transmission'] = c_transmission
+                lens_details['transindex'] = c_transindex
+                lens_details['purpose'] = c_purpose
+                lens_details['lighting'] = c_lighting
+                lens_details['url'] = c_url
+                lens_details['lenstype'] = c_lenstype
+                lens_details['typeid'] = c_typeid
 
         cursor.close()
         self.connection_pool.release_connection(cnx)
