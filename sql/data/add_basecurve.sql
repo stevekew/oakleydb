@@ -1,4 +1,7 @@
-INSERT INTO basecurve (id, name) VALUES (0, '4');
-INSERT INTO basecurve (id, name) VALUES (1, '6');
-INSERT INTO basecurve (id, name) VALUES (2, '8.75');
-INSERT INTO basecurve (id, name) VALUES (3, 'Toric');
+INSERT INTO basecurve (id, name, sourceid) 
+VALUES 
+(0, '4', 0),
+(1, '6', 0),
+(2, '8.75', 0),
+(3, 'Toric', 0);
+

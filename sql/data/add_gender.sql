@@ -1,3 +1,5 @@
-INSERT INTO gender (id, name) VALUES (0, 'Mens');
-INSERT INTO gender (id, name) VALUES (1, 'Womens');
-INSERT INTO gender (id, name) VALUES (2, 'Unisex');
+INSERT INTO gender (id, name, sourceid) 
+VALUES 
+(0, 'Mens', 0),
+(1, 'Womens', 0),
+(2, 'Unisex', 0);
