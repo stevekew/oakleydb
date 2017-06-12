@@ -16,3 +16,55 @@ class ObjectFactory(object):
             details['url'] = lens['url']
 
         return details
+
+    @staticmethod
+    def create_style(style):
+        ret_style = {'id': -1, 'name': '', 'url': '', 'family': ''}
+
+        if 'id' in style:
+            ret_style['id'] = style['id']
+
+        if 'name' in style:
+            ret_style['name'] = style['name']
+
+        if 'url' in style:
+            ret_style['url'] = style['url']
+
+        if 'family' in style:
+            ret_style['family'] = style['family']
+
+        return ret_style
+
+    @staticmethod
+    def create_model_details(model):
+        details = {'id': -1, 'name': '', 'style': '', 'sku': '', 'listprice': '', 'url': '', 'framecolour': '',
+                   'lens': '', 'fit': ''}
+
+        if 'id' in model:
+            details['id'] = model['id']
+
+        if 'name' in model:
+            details['name'] = model['name']
+
+        if 'style' in model:
+            details['style'] = model['style']
+
+        if 'sku' in model:
+            details['sku'] = model['sku']
+
+        if 'listprice' in model:
+            details['listprice'] = model['listprice']
+
+        if 'url' in model:
+            details['url'] = model['url']
+
+        if 'framecolour' in model:
+            details['framecolour'] = model['framecolour']
+
+        if 'lens' in model:
+            details['lens'] = model['lens']
+
+        if 'fit' in model:
+            details['fit'] = model['fit']
+
+        return details
