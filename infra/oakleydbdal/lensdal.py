@@ -155,8 +155,8 @@ class LensDal(object):
 
     def insert_lens_type(self, type_name, source_id):
         query = ("INSERT INTO lenstype "
-                 "(id, name, sourceid, validfrom, validto) "
-                 "VALUES (%s, %s, %s, %s, 0)")
+                 "(id, name, sourceid, validfrom) "
+                 "VALUES (%s, %s, %s, %s)")
 
         now = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())
 
