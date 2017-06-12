@@ -19,8 +19,8 @@ class LensDal(object):
 
     def get_lens_details(self, lens_name, lens_type):
         query = (
-        "SELECT l.id, l.name, base, coating, transmission, transindex, purpose, lighting, url, t.name as lenstype, t.id as typeid FROM lens l "
-        "JOIN lenstype t on l.typeid = t.id "
+        "SELECT l.id, l.name, base, coating, transmission, transindex, purpose, lighting, url, t.name as lenstype, t.id as lenstypeid FROM lens l "
+        "JOIN lenstype t on l.lenstypeid = t.id "
         "WHERE l.name = %s "
         "AND t.name = %s "
         "AND l.validfrom < %s "
@@ -40,7 +40,7 @@ class LensDal(object):
         lens_details = ObjectFactory.create_lens_details({})
 
         for (c_lensid, c_lensname, c_base, c_coating, c_transmission, c_transindex, c_purpose, c_lighting, c_url,
-             c_lenstype, c_typeid) in cursor:
+             c_lenstype, c_lenstypeid) in cursor:
             if c_lensname == lens_name and c_lenstype == lens_type:
                 lens_details['id'] = c_lensid
                 lens_details['name'] = c_lensname
@@ -52,7 +52,7 @@ class LensDal(object):
                 lens_details['lighting'] = c_lighting
                 lens_details['url'] = c_url
                 lens_details['lenstype'] = c_lenstype
-                lens_details['typeid'] = c_typeid
+                lens_details['typeid'] = c_lenstypeid
 
         cursor.close()
         self.connection_pool.release_connection(cnx)
@@ -98,8 +98,8 @@ class LensDal(object):
     def insert_lens_details(self, lens_details, source_id):
 
         query = ("INSERT INTO lens "
-                 "(id, name, base, coating, transmission, transindex, purpose, lighting, url, typeid, sourceid, validfrom, validto) "
-                 "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 0)")
+                 "(id, name, base, coating, transmission, transindex, purpose, lighting, url, lenstypeid, sourceid, validfrom) "
+                 "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
 
         now = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())
 
