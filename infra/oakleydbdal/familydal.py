@@ -54,7 +54,8 @@ class FamilyDal(object):
 
         ret_id = -1
         for f_id in cursor:
-            ret_id = int(f_id[0])
+            if f_id is not None and f_id[0] is not None:
+                ret_id = int(f_id[0])
 
         cursor.close()
         self.connection_pool.release_connection(cnx)
