@@ -21,12 +21,14 @@ logger.info('Creating data loader with data loader name [{}]'.format(loaderfacto
 data_loader = loaderfactory.get_loader(loaderfactory.OREVIEWV1_LOADER)
 
 process_glasses_families = False
-process_glasses_styles = True
-process_glasses_models = False
+process_glasses_styles = False
+process_glasses_models = True
 process_lenstypes = False
 process_lens_details = False
 
 process = True
+
+process_style = ''
 
 if process_lenstypes:
     logger.info('Processing Lens types')
@@ -110,14 +112,18 @@ elif process_glasses_styles:
     # returns a list of styles
     styles = data_loader.get_style_list()
 
-    for style in styles:
+    for style in reversed(styles):
+        if style['family'] == 'Signature':
+            continue
 
+        logger.info('Processing style [{}]...'.format(style['name']))
         style_id = -1
         if not style_dal.style_exists(style['name']):
             # style doesn't exist in the database
             logger.info('Inserting style: [{}]'.format(style['name']))
             style_id = style_dal.insert_style(style['name'], style['url'], DATA_SOURCE_O_REVIEW_V1_ARCHIVE)
         else:
+            logger.info('Ignoring style as it already exists')
             style_id = style_dal.get_style_id(style['name'])
 
         # confirm if the mapping for this style, family id exists
@@ -125,6 +131,7 @@ elif process_glasses_styles:
 
         if family_id != -1 and style_id != -1:
             if not mapping_dal.style_family_mapping_exists(style_id, family_id):
+                logger.info('Inserting mapping for style [{}]: [{}]->[{}]'.format(style['name'], style_id, family_id))
                 mapping_dal.insert_style_family_mapping(style_id, family_id, DATA_SOURCE_O_REVIEW_V1_ARCHIVE)
 
     # print styles
@@ -139,6 +146,36 @@ elif process_glasses_models:
 
     logger.info('Creating data access layer...')
     model_dal = ModelDal(cnx_pool)
+    style_dal = StyleDal(cnx_pool)
+    lens_dal = LensDal(cnx_pool)
+
+    styles = style_dal.get_all_styles()
+
+    for style in styles:
+        if len(process_style) == 0 or style['name'] == process_style:
+            process = True
+        else:
+            process = False
+
+        if process:
+            logger.info('Processing style [{}]...'.format(style['name']))
+            models = data_loader.get_models_for_style(style['name'], style['url'])
+
+            for model in models:
+                logger.info('Processing mode [{}]...'.format(model['name']))
+                if not model_dal.model_exists(model):
+                    fit_id = 0
+
+                    if 'Asian' in model['name']:
+                        fit_id = 1
+
+                    lens_id = lens_dal.get_lens_details(model['lens'], 'Eyewear')
+                    logger.info('Inserting model with name [{}], style [{}], sku [{}]'.format(model['name'],
+                                                                                              style['name'],
+                                                                                              model['sku']))
+                    model_dal.insert_model(style['id'], model, lens_id, fit_id, DATA_SOURCE_O_REVIEW_V1_ARCHIVE)
+                else:
+                    logger.info('Model with name [{}] already exists in the database, ignoring...'.format(model['name']))
 
     logger.info('Done')
 

@@ -16,11 +16,11 @@ class StyleDal(object):
 
         return exists
 
+    # TODO, work out how to work with the mappings
     def get_all_styles(self):
-        style_query = ("SELECT s.id, s.name, s.url, f.name as family FROM style s JOIN family f "
-                        "on s.familyid=f.id "
-                        "WHERE s.validfrom < %s "
-                        "AND ((s.validto = '0000-00-00 00:00:00') OR (s.validto >= %s))")
+        style_query = ("SELECT id, name, url FROM style "
+                        "WHERE validfrom < %s "
+                        "AND ((validto = '0000-00-00 00:00:00') OR (validto >= %s))")
 
         now = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())
 
@@ -33,8 +33,8 @@ class StyleDal(object):
         cursor.execute(style_query, style_data)
 
         styles = []
-        for (s_id, s_name, s_url, family) in cursor:
-            style = {'id': s_id, 'name': s_name, 'url': s_url, 'family': family}
+        for (s_id, s_name, s_url) in cursor:
+            style = {'id': s_id, 'name': s_name, 'url': s_url}
 
             styles.append(style)
 

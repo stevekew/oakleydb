@@ -34,7 +34,7 @@ class ObjectFactory(object):
 
     @staticmethod
     def create_model_details(model):
-        details = {'id': -1, 'name': '', 'style': '', 'sku': '', 'listprice': '', 'url': '', 'framecolour': '',
+        details = {'name': '', 'style': '', 'sku': '', 'listprice': '', 'url': '', 'framecolour': '',
                    'lens': '', 'fit': ''}
 
         if 'id' in model:
