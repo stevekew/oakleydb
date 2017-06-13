@@ -73,6 +73,32 @@ class StyleDal(object):
 
         return style
 
+    def get_style_id(self, style_name):
+        style_query = ("SELECT id, name FROM style "
+                        "WHERE name = %s "
+                        "AND validfrom < %s "
+                        "AND ((validto = '0000-00-00 00:00:00') OR (validto >= %s))")
+
+        now = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())
+
+        cnx = self.connection_pool.get_connection()
+        cursor = cnx.cursor()
+
+        style_data = (style_name, now, now)
+        self.logger.debug("Getting style ID with query [%s] and data [%s]", style_query, style_data)
+
+        cursor.execute(style_query, style_data)
+
+        style_id = -1
+        for (s_id, s_name) in cursor:
+            if s_name == style_name:
+                style_id = s_id
+
+        cursor.close()
+        self.connection_pool.release_connection(cnx)
+
+        return style_id
+
     def get_last_style_id(self):
         style_query = ("SELECT MAX(id) FROM style")
 
@@ -82,27 +108,28 @@ class StyleDal(object):
         cursor.execute(style_query)
 
         ret_id = -1
-        for s_id in cursor:
-            ret_id = int(s_id[0])
+        for c_id in cursor:
+            if c_id is not None and c_id[0] is not None:
+                ret_id = int(c_id[0])
 
         cursor.close()
         self.connection_pool.release_connection(cnx)
 
         return ret_id
 
-    def insert_style(self, style_name, family_id, url, source_id):
+    def insert_style(self, style_name, url, source_id):
         add_style = ("INSERT INTO style "
-                       "(id, name, sourceid, familyid, url, validfrom) "
-                       "VALUES (%s, %s, %s, %s, %s, %s)")
+                       "(id, name, sourceid, url, validfrom) "
+                       "VALUES (%s, %s, %s, %s, %s)")
 
         now = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())
 
-        style_id = self.get_last_family_id() + 1
+        style_id = self.get_last_style_id() + 1
 
         cnx = self.connection_pool.get_connection()
         cursor = cnx.cursor()
 
-        data_style = (style_id, style_name, source_id, family_id, url, now)
+        data_style = (style_id, style_name, source_id, url, now)
         cursor.execute(add_style, data_style)
 
         cnx.commit()
@@ -111,3 +138,5 @@ class StyleDal(object):
         self.connection_pool.release_connection(cnx)
 
         return style_id
+
+

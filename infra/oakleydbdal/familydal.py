@@ -44,6 +44,33 @@ class FamilyDal(object):
 
         return family
 
+    def get_family_id(self, family_name):
+        family_query = ("SELECT id, name FROM family "
+                        "WHERE name = %s "
+                        "AND validfrom < %s "
+                        "AND ((validto = '0000-00-00 00:00:00') OR (validto >= %s))")
+
+        now = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())
+
+        cnx = self.connection_pool.get_connection()
+        cursor = cnx.cursor()
+
+        family_data = (family_name, now, now)
+
+        self.logger.debug("Getting family id with query [%s] and data [%s]", family_query, family_data)
+
+        cursor.execute(family_query, family_data)
+
+        family_id = -1
+        for (f_id, f_name) in cursor:
+            if f_name == family_name:
+                family_id = f_id
+
+        cursor.close()
+        self.connection_pool.release_connection(cnx)
+
+        return family_id
+
     def get_last_family_id(self):
         family_query = ("SELECT MAX(id) FROM family")
 

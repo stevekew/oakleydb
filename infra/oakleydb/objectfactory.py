@@ -19,10 +19,7 @@ class ObjectFactory(object):
 
     @staticmethod
     def create_style(style):
-        ret_style = {'id': -1, 'name': '', 'url': '', 'family': ''}
-
-        if 'id' in style:
-            ret_style['id'] = style['id']
+        ret_style = {'name': '', 'url': '', 'family': ''}
 
         if 'name' in style:
             ret_style['name'] = style['name']

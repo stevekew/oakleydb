@@ -2,6 +2,7 @@ from oakleydbdal.familydal import FamilyDal
 from oakleydbdal.styledal import StyleDal
 from oakleydbdal.modeldal import ModelDal
 from oakleydbdal.lensdal import LensDal
+from oakleydbdal.mappingdal import MappingDal
 from oakleydbdal.connectionpool import ConnectionPool
 from core import settings
 from core.logger import Logger
@@ -19,8 +20,8 @@ cnx_pool = ConnectionPool(settings.db_config)
 logger.info('Creating data loader with data loader name [{}]'.format(loaderfactory.OREVIEWV1_LOADER))
 data_loader = loaderfactory.get_loader(loaderfactory.OREVIEWV1_LOADER)
 
-process_glasses_families = True
-process_glasses_styles = False
+process_glasses_families = False
+process_glasses_styles = True
 process_glasses_models = False
 process_lenstypes = False
 process_lens_details = False
@@ -86,7 +87,7 @@ elif process_glasses_families:
     logger.info('Creating data access layer...')
     family_dal = FamilyDal(cnx_pool)
 
-    logger.info('Loading lens list from data loader: [{}]'.format(data_loader.get_name()))
+    logger.info('Loading glasses families from data loader: [{}]'.format(data_loader.get_name()))
     # returns a list of family names
     families = data_loader.get_family_list()
 
@@ -102,8 +103,29 @@ elif process_glasses_styles:
 
     logger.info('Creating data access layer...')
     style_dal = StyleDal(cnx_pool)
+    family_dal = FamilyDal(cnx_pool)
+    mapping_dal = MappingDal(cnx_pool)
 
+    logger.info('Loading glasses styles from data loader: [{}]'.format(data_loader.get_name()))
+    # returns a list of styles
     styles = data_loader.get_style_list()
+
+    for style in styles:
+
+        style_id = -1
+        if not style_dal.style_exists(style['name']):
+            # style doesn't exist in the database
+            logger.info('Inserting style: [{}]'.format(style['name']))
+            style_id = style_dal.insert_style(style['name'], style['url'], DATA_SOURCE_O_REVIEW_V1_ARCHIVE)
+        else:
+            style_id = style_dal.get_style_id(style['name'])
+
+        # confirm if the mapping for this style, family id exists
+        family_id = family_dal.get_family_id(style['family'])
+
+        if family_id != -1 and style_id != -1:
+            if not mapping_dal.style_family_mapping_exists(style_id, family_id):
+                mapping_dal.insert_style_family_mapping(style_id, family_id, DATA_SOURCE_O_REVIEW_V1_ARCHIVE)
 
     # print styles
     # logger.info('Retrieving styles...')
