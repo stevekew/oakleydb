@@ -9,6 +9,8 @@ from loaders import loaderfactory
 
 settings.LOGGING_FILENAME = 'data_loader'
 
+DATA_SOURCE_O_REVIEW_V1_ARCHIVE = 1
+
 logger = Logger('data_loader').get()
 
 logger.info('Setting up connection pool...')
@@ -39,26 +41,40 @@ data_loader = loaderfactory.get_loader(loaderfactory.OREVIEWV1_LOADER)
 
 ## lens_details = data_loader.get_lens_details({'name': 'VR50-Brown Gradient', 'lenstype': 'Gradient', 'url': 'http://www.o-review.com/lensdetail.asp?ID=2556'})
 
-# process = False
-#
+
+# first process all lens types
+lenses = data_loader.get_lens_list()  # this function will provide basic lens information from the lens list page. use it to get lens types and lens names and urls
+
+# type_name = unicode('')
 # for lens in lenses:
-#
-#     if lens['lenstype'] == 'Gradient':
-#         process = True
-#
-#     if process:
-#         lens_details = data_loader.get_lens_details(lens)
-#
-#         if not lens_dal.lens_type_exists(lens_details['lenstype']):
-#             lens_type = lens_details['lenstype']
-#             print 'Inserting lens type: [{}]'.format(lens_type)
-#             lens_dal.insert_lens_type(lens_type, 1)
-#
-#         if lens_details['typeid'] == -1:
-#             lens_details['typeid'] = lens_dal.get_lens_type_id(lens_details['lenstype'])
-#
-#         if not lens_dal.lens_exists(lens_details):
-#             lens_dal.insert_lens_details(lens_details, 1)
+#     if type_name != lens['lenstype']:
+#         type_name = lens['lenstype']
+#         print 'inserting [{}]'.format(type_name)
+#         lens_dal.insert_lens_type(type_name, DATA_SOURCE_O_REVIEW_V1_ARCHIVE)
+
+
+
+process = True
+
+for lens in lenses:
+
+    # if lens['lenstype'] == 'Gradient':
+    #     process = True
+
+    if process:
+        if not lens_dal.lens_exists(lens):
+            lens_details = data_loader.get_lens_details(lens)
+
+            if not lens_dal.lens_type_exists(lens_details['lenstype']):
+                lens_type = lens_details['lenstype']
+                print 'Inserting lens type: [{}]'.format(lens_type)
+                lens_dal.insert_lens_type(lens_type, DATA_SOURCE_O_REVIEW_V1_ARCHIVE)
+
+            if lens_details['typeid'] == -1:
+                lens_details['typeid'] = lens_dal.get_lens_type_id(lens_details['lenstype'])
+
+            # if not lens_dal.lens_exists(lens_details): # already checked above
+            lens_dal.insert_lens_details(lens_details, DATA_SOURCE_O_REVIEW_V1_ARCHIVE)
 
 
 

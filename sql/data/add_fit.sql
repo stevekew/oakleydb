@@ -1,2 +1,4 @@
-INSERT INTO fit (id, name) VALUES (0, 'Standard');
-INSERT INTO fit (id, name) VALUEs (1, 'Asian');
+INSERT INTO fit (id, name, sourceid) 
+VALUES
+(0, 'Standard', 0),
+(1, 'Asian', 0);
