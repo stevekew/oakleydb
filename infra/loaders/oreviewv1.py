@@ -179,7 +179,7 @@ class OReviewLoaderV1(object):
 
             model_url = SITE_URL + '/' + cols[1].a[HTML_HREF_ATTRIBUTE]
 
-            model = {'name': '{} {}'.format(style_name, unicode(name)), 'listprice': unicode(cols[2].string),
+            model = {'name': unicode(name), 'listprice': unicode(cols[2].string),
                      'url': unicode(model_url)}
 
             sku = ''
