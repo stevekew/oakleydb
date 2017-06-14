@@ -3,7 +3,7 @@ class ObjectFactory(object):
     # creates an empty lens details dictionary to allow us to always have the correct fields
     @staticmethod
     def create_lens_details(lens):
-        details = {'name': '', 'base': '', 'coating': '', 'transmission': '', 'transindex': 0,
+        details = {'id': -1, 'name': '', 'base': '', 'coating': '', 'transmission': '', 'transindex': 0,
                    'purpose': '', 'lighting': '', 'lenstype': '', 'url': '', 'typeid': -1}
 
         if 'name' in lens:
@@ -19,7 +19,7 @@ class ObjectFactory(object):
 
     @staticmethod
     def create_style(style):
-        ret_style = {'name': '', 'url': '', 'family': ''}
+        ret_style = {'id': -1, 'name': '', 'url': '', 'family': ''}
 
         if 'name' in style:
             ret_style['name'] = style['name']
@@ -34,7 +34,7 @@ class ObjectFactory(object):
 
     @staticmethod
     def create_model_details(model):
-        details = {'name': '', 'style': '', 'sku': '', 'listprice': '', 'url': '', 'framecolour': '',
+        details = {'id': -1, 'name': '', 'style': '', 'sku': '', 'listprice': '', 'url': '', 'frame': '',
                    'lens': '', 'fit': ''}
 
         if 'id' in model:
@@ -55,8 +55,8 @@ class ObjectFactory(object):
         if 'url' in model:
             details['url'] = model['url']
 
-        if 'framecolour' in model:
-            details['framecolour'] = model['framecolour']
+        if 'frame' in model:
+            details['frame'] = model['frame']
 
         if 'lens' in model:
             details['lens'] = model['lens']

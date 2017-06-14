@@ -17,12 +17,12 @@ class ModelDal(object):
         return exists
 
     def get_model(self, style_name, model_name, sku):
-        query = ("SELECT m.* FROM model m JOIN style s on m.styleid = s.id "
+        query = ("SELECT m.id, m.name, m.sku, m.listprice, m.url FROM model m JOIN style s on m.styleid = s.id "
                         "WHERE s.name = %s "
                         "AND m.name = %s "
                         "AND m.sku = %s "
                         "AND m.validfrom < %s "
-                        "AND ((m.validto is null) OR (m.validto >= %s))")
+                        "AND ((m.validto = 0) OR (m.validto >= %s))")
 
         now = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())
 
@@ -38,11 +38,7 @@ class ModelDal(object):
         model = None
         for (m_id, m_name, m_sku, m_listprice, m_url) in cursor:
             if m_name == model_name:
-                model['id'] = m_id
-                model['name'] = m_name
-                model['sku'] = m_sku
-                model['listprice'] = m_listprice
-                model['url'] = m_url
+                model = {'id': m_id, 'name': m_name, 'sku': m_sku, 'listprice': m_listprice, 'url': m_url}
 
         cursor.close()
         self.connection_pool.release_connection(cnx)
@@ -70,7 +66,7 @@ class ModelDal(object):
     #style_id, model_name, model_sku, model_framecolour, model_lens, fit_id, model_listprice, model_url
     def insert_model(self,  model, style_id, lens_id, fit_id, source_id):
 
-        add_model = ("INSERT INTO model "
+        query = ("INSERT INTO model "
                       "(id, name, styleid, sku, listprice, url, framecolour, lensid, fitid, sourceid, validfrom) "
                       "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
 
@@ -81,10 +77,12 @@ class ModelDal(object):
         cnx = self.connection_pool.get_connection()
         cursor = cnx.cursor()
 
-        data_model = (model_id, model['name'], style_id, model['sku'], model['listprice'], model['url'],
-                      model['framecolour'], lens_id, fit_id, source_id, now)
+        data = (model_id, model['name'], style_id, model['sku'], model['listprice'], model['url'],
+                      model['frame'], lens_id, fit_id, source_id, now)
 
-        cursor.execute(add_model, data_model)
+        self.logger.debug("Inserting model with query [%s] and data [%s]", query, data)
+
+        cursor.execute(query, data)
 
         cnx.commit()
 

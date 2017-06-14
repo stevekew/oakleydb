@@ -16,11 +16,13 @@ class StyleDal(object):
 
         return exists
 
-    # TODO, work out how to work with the mappings
+
     def get_all_styles(self):
-        style_query = ("SELECT id, name, url FROM style "
-                        "WHERE validfrom < %s "
-                        "AND ((validto = '0000-00-00 00:00:00') OR (validto >= %s))")
+        style_query = ("SELECT s.id, s.name, s. url, f.name as familyname FROM style s "
+                        "JOIN familystylemap m on m.styleid = s.id "
+                        "JOIN family f on m.familyid = f.id "
+                        "WHERE s.validfrom < %s "
+                        "AND ((s.validto = '0000-00-00 00:00:00') OR (s.validto >= %s))")
 
         now = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())
 
@@ -33,8 +35,37 @@ class StyleDal(object):
         cursor.execute(style_query, style_data)
 
         styles = []
-        for (s_id, s_name, s_url) in cursor:
-            style = {'id': s_id, 'name': s_name, 'url': s_url}
+        for (c_id, c_name, c_url, c_family) in cursor:
+            style = {'id': c_id, 'name': c_name, 'url': c_url, 'family': c_family}
+
+            styles.append(style)
+
+        cursor.close()
+        self.connection_pool.release_connection(cnx)
+
+        return styles
+
+    def get_styles_for_family(self, family_name):
+        style_query = ("SELECT s.id, s.name, s. url, f.name as familyname FROM style s "
+                        "JOIN familystylemap m on m.styleid = s.id "
+                        "JOIN family f on m.familyid = f.id "
+                        "WHERE f.name = %s "
+                        "AND s.validfrom < %s "
+                        "AND ((s.validto = '0000-00-00 00:00:00') OR (s.validto >= %s))")
+
+        now = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())
+
+        cnx = self.connection_pool.get_connection()
+        cursor = cnx.cursor()
+
+        style_data = (family_name, now, now)
+        self.logger.debug("Getting style with query [%s] and data [%s]", style_query, style_data)
+
+        cursor.execute(style_query, style_data)
+
+        styles = []
+        for (c_id, c_name, c_url, c_family) in cursor:
+            style = {'id': c_id, 'name': c_name, 'url': c_url, 'family': c_family}
 
             styles.append(style)
 

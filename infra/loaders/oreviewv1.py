@@ -52,6 +52,9 @@ class OReviewLoaderV1(object):
     def get_models_for_style(self, style_name, url):
         return self.parse_models_page(style_name, url)
 
+    def get_model_details(self, model):
+        return OReviewLoaderV1.convert_to_oakleydb_model_details(model, self.parse_details_page(model['url']))
+
     def get_lens_list(self):
         return self.parse_lens_list_page(LENS_LIST_URL)
 
@@ -180,7 +183,7 @@ class OReviewLoaderV1(object):
             model_url = SITE_URL + '/' + cols[1].a[HTML_HREF_ATTRIBUTE]
 
             model = {'name': unicode(name), 'listprice': unicode(cols[2].string),
-                     'url': unicode(model_url)}
+                     'url': unicode(model_url), 'style': style_name}
 
             sku = ''
             if cols[3].font is not None:
@@ -190,38 +193,38 @@ class OReviewLoaderV1(object):
 
             model['sku'] = unicode(sku)
 
-            model_details = self.parse_details_page(model_url)
+            # model_details = self.parse_details_page(model_url)
+            #
+            # # confirm the SKUs match before processing
+            # process_details = False
+            # if 'SKU#' in model_details:
+            #     if model['sku'] == model_details['SKU#']:
+            #         process_details = True
+            #     else:
+            #         self.logger.error(
+            #             "SKU for model [{}] ([{}]) does not match SKU for model details [{}]. Not processing model details".
+            #                 format(model['name'], model['sku'], model['SKU#']))
+            # else:
+            #     self.logger.error("No SKU found for model details page with URL [{}]".format(model['url']))
 
-            # confirm the SKUs match before processing
-            process_details = False
-            if 'SKU#' in model_details:
-                if model['sku'] == model_details['SKU#']:
-                    process_details = True
-                else:
-                    self.logger.error(
-                        "SKU for model [{}] ([{}]) does not match SKU for model details [{}]. Not processing model details".
-                            format(model['name'], model['sku'], model['SKU#']))
-            else:
-                self.logger.error("No SKU found for model details page with URL [{}]".format(model['url']))
-
-            if process_details:
-                if 'Frame' in model_details:
-                    model['frame'] = model_details['Frame']
-                if 'Lens' in model_details:
-                    model['lens'] = model_details['Lens']
-                if 'Release Date' in model_details:
-                    model['releasedate'] = model_details['Release Date']
-                if 'Retire Date' in model_details:
-                    model['retiredate'] = model_details['Retire Date']
-                # if '' in model_details: model[''] = model_details['Model']
-                # if '' in model_details: model[''] = model_details['SKU#']
-                # if '' in model_details: model[''] = model_details['UPC']
-                # if '' in model_details: model[''] = model_details['USD']
-            else:
-                model['frame'] = ''
-                model['lens'] = ''
-                model['releasedate'] = ''
-                model['retiredate'] = ''
+            # if process_details:
+            #     if 'Frame' in model_details:
+            #         model['frame'] = model_details['Frame']
+            #     if 'Lens' in model_details:
+            #         model['lens'] = model_details['Lens']
+            #     if 'Release Date' in model_details:
+            #         model['releasedate'] = model_details['Release Date']
+            #     if 'Retire Date' in model_details:
+            #         model['retiredate'] = model_details['Retire Date']
+            #     # if '' in model_details: model[''] = model_details['Model']
+            #     # if '' in model_details: model[''] = model_details['SKU#']
+            #     # if '' in model_details: model[''] = model_details['UPC']
+            #     # if '' in model_details: model[''] = model_details['USD']
+            # else:
+            #     model['frame'] = ''
+            #     model['lens'] = ''
+            #     model['releasedate'] = ''
+            #     model['retiredate'] = ''
 
             models.append(model)
 
@@ -323,3 +326,29 @@ class OReviewLoaderV1(object):
             lens_details['lenstype'] = oreview_lens_details['Type']
 
         return lens_details
+
+    @staticmethod
+    def convert_to_oakleydb_model_details(model, oreview_model_details):
+        if oreview_model_details is None:
+            return None
+
+        model_details = ObjectFactory.create_model_details(model)
+
+        if 'Frame' in oreview_model_details:
+            model_details['frame'] = oreview_model_details['Frame']
+        if 'Lens' in oreview_model_details:
+            model_details['lens'] = oreview_model_details['Lens']
+        if 'Release Date' in oreview_model_details:
+            model_details['releasedate'] = oreview_model_details['Release Date']
+        if 'Retire Date' in oreview_model_details:
+            model_details['retiredate'] = oreview_model_details['Retire Date']
+        if 'Model' in oreview_model_details:
+            model_details['style'] = oreview_model_details['Model']
+        if 'SKU#' in oreview_model_details:
+            model_details['sku2'] = oreview_model_details['SKU#']
+        if 'UPC' in oreview_model_details:
+            model_details['upc'] = oreview_model_details['UPC']
+        if 'USD' in oreview_model_details:
+            model_details['usd'] = oreview_model_details['USD']
+
+        return model_details

@@ -28,7 +28,7 @@ process_lens_details = False
 
 process = True
 
-process_style = ''
+process_family = '' #''Other'
 
 if process_lenstypes:
     logger.info('Processing Lens types')
@@ -149,33 +149,61 @@ elif process_glasses_models:
     style_dal = StyleDal(cnx_pool)
     lens_dal = LensDal(cnx_pool)
 
-    styles = style_dal.get_all_styles()
+    styles = {}
+    if len(process_family) > 0:
+        logger.info('Loading glasses styles from database for family [{}]'.format(process_family))
+        styles = style_dal.get_styles_for_family(process_family)
+    else:
+        logger.info('Loading all glasses styles from database')
+        styles = style_dal.get_all_styles()
+
+    logger.info('Loaded [{}] styles for processing'.format(len(styles)))
 
     for style in styles:
-        if len(process_style) == 0 or style['name'] == process_style:
-            process = True
-        else:
-            process = False
+        logger.info('Processing style [{}]...'.format(style['name']))
+        models = data_loader.get_models_for_style(style['name'], style['url'])
 
-        if process:
-            logger.info('Processing style [{}]...'.format(style['name']))
-            models = data_loader.get_models_for_style(style['name'], style['url'])
+        for model in models:
+            logger.info('Processing model [{}]...'.format(model['name']))
+            if not model_dal.model_exists(model):
+                model_details = data_loader.get_model_details(model)
 
-            for model in models:
-                logger.info('Processing mode [{}]...'.format(model['name']))
-                if not model_dal.model_exists(model):
-                    fit_id = 0
+                fit_id = 0
 
-                    if 'Asian' in model['name']:
-                        fit_id = 1
+                if 'Asian' in model_details['name']:
+                    fit_id = 1
 
-                    lens_id = lens_dal.get_lens_details(model['lens'], 'Eyewear')
-                    logger.info('Inserting model with name [{}], style [{}], sku [{}]'.format(model['name'],
-                                                                                              style['name'],
-                                                                                              model['sku']))
-                    model_dal.insert_model(style['id'], model, lens_id, fit_id, DATA_SOURCE_O_REVIEW_V1_ARCHIVE)
-                else:
-                    logger.info('Model with name [{}] already exists in the database, ignoring...'.format(model['name']))
+                lens_type = 'Eyewear'
+
+                if 'Transition' in model_details['lens']:
+                    lens_type = 'Transition'
+                elif 'Photochromatic' in model_details['lens']:
+                    lens_type = 'Photochromatic'
+                elif 'Gradient' in model_details['lens']:
+                    lens_type = 'Gradient'
+                elif style['family'] == 'RX':
+                    lens_type = 'Rx'
+
+                lens = lens_dal.get_lens_details(model_details['lens'], lens_type)
+
+                if lens is None or lens['id'] == -1:
+                    # try old lenses
+                    lens = lens_dal.get_lens_details(model_details['lens'], 'Old Lens')
+
+                if lens is None or lens['id'] == -1:
+                    lens =
+                    lens_dal.insert_lens_details()
+                    logger.error('Failed to find lens for model [{}], style [{}], sku [{}]'.format(model_details['name'],
+                                                                                          style['name'],
+                                                                                          model_details['sku']))
+                    continue
+
+                logger.info('Inserting model with name [{}], style [{}], sku [{}]'.format(model_details['name'],
+                                                                                          style['name'],
+                                                                                          model_details['sku']))
+                model_dal.insert_model(model_details, style['id'], lens['id'], fit_id, DATA_SOURCE_O_REVIEW_V1_ARCHIVE)
+            else:
+                logger.info('Model with name [{}] already exists in the database, ignoring...'.format(model['name']))
 
     logger.info('Done')
 
