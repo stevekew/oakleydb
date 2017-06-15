@@ -28,7 +28,7 @@ process_lens_details = False
 
 process = True
 
-process_family = '' #''Other'
+process_family = 'Frogskins'  # ''Other'
 
 if process_lenstypes:
     logger.info('Processing Lens types')
@@ -169,31 +169,17 @@ elif process_glasses_models:
                 model_details = data_loader.get_model_details(model)
 
                 fit_id = 0
+                lens_id = -1
 
                 if 'Asian' in model_details['name']:
                     fit_id = 1
 
-                lens_type = 'Eyewear'
+                lens_id = lens_dal.get_or_create_lens_id(model_details['lens'], 'Eyewear', style['family'],
+                                                         DATA_SOURCE_O_REVIEW_V1_ARCHIVE)
 
-                if 'Transition' in model_details['lens']:
-                    lens_type = 'Transition'
-                elif 'Photochromatic' in model_details['lens']:
-                    lens_type = 'Photochromatic'
-                elif 'Gradient' in model_details['lens']:
-                    lens_type = 'Gradient'
-                elif style['family'] == 'RX':
-                    lens_type = 'Rx'
-
-                lens = lens_dal.get_lens_details(model_details['lens'], lens_type)
-
-                if lens is None or lens['id'] == -1:
-                    # try old lenses
-                    lens = lens_dal.get_lens_details(model_details['lens'], 'Old Lens')
-
-                if lens is None or lens['id'] == -1:
-                    lens =
-                    lens_dal.insert_lens_details()
-                    logger.error('Failed to find lens for model [{}], style [{}], sku [{}]'.format(model_details['name'],
+                if lens_id == -1:
+                    logger.error(
+                        'Failed to find lens for model [{}], style [{}], sku [{}]'.format(model_details['name'],
                                                                                           style['name'],
                                                                                           model_details['sku']))
                     continue
@@ -201,7 +187,8 @@ elif process_glasses_models:
                 logger.info('Inserting model with name [{}], style [{}], sku [{}]'.format(model_details['name'],
                                                                                           style['name'],
                                                                                           model_details['sku']))
-                model_dal.insert_model(model_details, style['id'], lens['id'], fit_id, DATA_SOURCE_O_REVIEW_V1_ARCHIVE)
+
+                model_dal.insert_model(model_details, style['id'], lens_id, fit_id, DATA_SOURCE_O_REVIEW_V1_ARCHIVE)
             else:
                 logger.info('Model with name [{}] already exists in the database, ignoring...'.format(model['name']))
 

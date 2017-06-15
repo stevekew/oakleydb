@@ -15,6 +15,9 @@ class ObjectFactory(object):
         if 'url' in lens:
             details['url'] = lens['url']
 
+        if 'typeid' in lens:
+            details['typeid'] = lens['typeid']
+
         return details
 
     @staticmethod

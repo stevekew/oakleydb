@@ -59,6 +59,40 @@ class LensDal(object):
 
         return lens_details
 
+    def get_or_create_lens_id(self, lens_name, lens_type, frame_family, source_id):
+        # lens_type = 'Eyewear'
+            lens_id = -1
+
+            if lens_name is None or len(lens_name) == 0:
+                return lens_id
+
+            if 'Transition' in lens_name:
+                lens_type = 'Transition'
+            elif 'Photochromatic' in lens_name:
+                lens_type = 'Photochromatic'
+            elif 'Gradient' in lens_name:
+                lens_type = 'Gradient'
+            elif frame_family == 'RX':
+                lens_type = 'Rx'
+
+            lens = self.get_lens_details(lens_name, lens_type)
+
+            if lens is None or 'id' not in lens or lens['id'] == -1:
+                # try old lenses
+                lens = self.get_lens_details(lens_name, 'Old Lens')
+
+                if lens is None or 'id' not in lens or lens['id'] == -1:
+                    lens_type_id = self.get_lens_type_id('Uncategorised')
+                    lens = ObjectFactory.create_lens_details({'name': lens_name, 'lenstype': 'Uncategorised', 'typeid': lens_type_id})
+
+                    self.logger.info('Inserting lens with name [{}] and lens type [{}]'.format(lens['name'], lens['lenstype']))
+                    lens_id = self.insert_lens_details(lens, source_id)
+
+            else:
+                lens_id = lens['id']
+
+            return lens_id
+
     def get_last_lens_id(self):
         query = ("SELECT MAX(id) FROM lens")
 

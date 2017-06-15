@@ -1,0 +1,1 @@
+INSERT INTO lenstype SELECT MAX(id)+1, 'Uncategorised', 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,  0 FROM lenstype
