@@ -37,13 +37,42 @@ class ModelDal(object):
 
         model = None
         for (m_id, m_name, m_sku, m_listprice, m_url) in cursor:
-            if m_name == model_name:
+            if m_name == model_name and sku == m_sku:
                 model = {'id': m_id, 'name': m_name, 'sku': m_sku, 'listprice': m_listprice, 'url': m_url}
 
         cursor.close()
         self.connection_pool.release_connection(cnx)
 
         return model
+
+    def get_model_id(self, style_id, model_name, sku):
+        query = ("SELECT id, name, sku FROM model "
+                        "WHERE name = %s "
+                        "AND styleid = %s "
+                        "AND sku = %s "
+                        "AND validfrom < %s "
+                        "AND ((validto = 0) OR (validto >= %s))")
+
+        now = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())
+
+        cnx = self.connection_pool.get_connection()
+        cursor = cnx.cursor()
+
+        data = ( model_name, style_id, sku, now, now)
+
+        self.logger.debug("Getting model id with query [%s] and data [%s]", query, data)
+
+        cursor.execute(query, data)
+
+        model_id = -1
+        for (m_id, m_name, m_sku) in cursor:
+            if m_name == model_name and sku == m_sku:
+                model_id = m_id
+
+        cursor.close()
+        self.connection_pool.release_connection(cnx)
+
+        return model_id
 
     def get_last_model_id(self):
         model_query = ("SELECT MAX(id) FROM model")
@@ -67,17 +96,15 @@ class ModelDal(object):
     def insert_model(self,  model, style_id, lens_id, fit_id, source_id):
 
         query = ("INSERT INTO model "
-                      "(id, name, styleid, sku, listprice, url, framecolour, lensid, fitid, sourceid, validfrom) "
-                      "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
+                      "(name, styleid, sku, listprice, url, framecolour, lensid, fitid, sourceid, validfrom) "
+                      "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
 
         now = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())
-
-        model_id = self.get_last_model_id() + 1
 
         cnx = self.connection_pool.get_connection()
         cursor = cnx.cursor()
 
-        data = (model_id, model['name'], style_id, model['sku'], model['listprice'], model['url'],
+        data = (model['name'], style_id, model['sku'], model['listprice'], model['url'],
                       model['frame'], lens_id, fit_id, source_id, now)
 
         self.logger.debug("Inserting model with query [%s] and data [%s]", query, data)
@@ -89,4 +116,5 @@ class ModelDal(object):
         cursor.close()
         self.connection_pool.release_connection(cnx)
 
+        model_id = self.get_model_id(style_id, model['name'], model['sku'])
         return model_id

@@ -7,12 +7,35 @@ from oakleydbdal.connectionpool import ConnectionPool
 from core import settings
 from core.logger import Logger
 from loaders import loaderfactory
+from enum import Enum
+import argparse
 
-settings.LOGGING_FILENAME = 'data_loader'
-
+Mode = Enum('Mode', 'families styles models lenstypes lenses')
 DATA_SOURCE_O_REVIEW_V1_ARCHIVE = 1
 
+parser = argparse.ArgumentParser(description='Oakley DB data loader process')
+parser.add_argument('mode', choices=['families', 'styles', 'models', 'lenstypes', 'lenses'],
+                    help='The mode to run the loader in')
+parser.add_argument('--family', help='The glasses family to load model details for')
+parser.add_argument('--logfile', help='The name of the log file')
+
+args = parser.parse_args()
+
+loader_mode = Mode[args.mode]
+process_family = ''
+settings.LOGGING_FILENAME = 'data_loader'
+
+if args.family is not None:
+    process_family = args.family
+
+if args.logfile is not None:
+    settings.LOGGING_FILENAME = args.logfile.replace('.log', '')
+
 logger = Logger('data_loader').get()
+
+logger.info('Starting data_loader...')
+logger.info('Running with the following args: [{}]'.format(args))
+logger.info('===============================')
 
 logger.info('Setting up connection pool...')
 cnx_pool = ConnectionPool(settings.db_config)
@@ -20,17 +43,17 @@ cnx_pool = ConnectionPool(settings.db_config)
 logger.info('Creating data loader with data loader name [{}]'.format(loaderfactory.OREVIEWV1_LOADER))
 data_loader = loaderfactory.get_loader(loaderfactory.OREVIEWV1_LOADER)
 
-process_glasses_families = False
-process_glasses_styles = False
-process_glasses_models = True
-process_lenstypes = False
-process_lens_details = False
+# process_glasses_families = False
+# process_glasses_styles = False
+# process_glasses_models = True
+# process_lenstypes = False
+# process_lens_details = False
 
 process = True
 
-process_family = 'Frogskins'  # ''Other'
+# process_family = 'Frogskins'  # ''Other'
 
-if process_lenstypes:
+if loader_mode == Mode.lenstypes:
     logger.info('Processing Lens types')
     logger.info('Creating data access layer...')
     lens_dal = LensDal(cnx_pool)
@@ -49,7 +72,7 @@ if process_lenstypes:
 
         logger.info('Done')
 
-elif process_lens_details:
+elif  loader_mode == Mode.lenses:
     logger.info('Processing Lens details')
     logger.info('Creating data access layer...')
     lens_dal = LensDal(cnx_pool)
@@ -83,7 +106,7 @@ elif process_lens_details:
         ## lens_details = data_loader.get_lens_details({'name': 'VR50-Brown Gradient', 'lenstype': 'Gradient', 'url': 'http://www.o-review.com/lensdetail.asp?ID=2556'})
         logger.info('Done')
 
-elif process_glasses_families:
+elif loader_mode == Mode.families:
     logger.info('Processing Glasses families')
 
     logger.info('Creating data access layer...')
@@ -100,7 +123,7 @@ elif process_glasses_families:
 
     logger.info('Done')
 
-elif process_glasses_styles:
+elif loader_mode == Mode.styles:
     logger.info('Processing Glasses styles')
 
     logger.info('Creating data access layer...')
@@ -141,7 +164,7 @@ elif process_glasses_styles:
 
     logger.info('Done')
 
-elif process_glasses_models:
+elif loader_mode == Mode.models:
     logger.info('Processing Glasses details')
 
     logger.info('Creating data access layer...')

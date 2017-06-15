@@ -82,16 +82,18 @@ class LensDal(object):
                 lens = self.get_lens_details(lens_name, 'Old Lens')
 
                 if lens is None or 'id' not in lens or lens['id'] == -1:
-                    lens_type_id = self.get_lens_type_id('Uncategorised')
-                    lens = ObjectFactory.create_lens_details({'name': lens_name, 'lenstype': 'Uncategorised', 'typeid': lens_type_id})
+                    # try Uncategorised lenses
+                    lens = self.get_lens_details(lens_name, 'Uncategorised')
 
-                    self.logger.info('Inserting lens with name [{}] and lens type [{}]'.format(lens['name'], lens['lenstype']))
-                    lens_id = self.insert_lens_details(lens, source_id)
+                    if lens is None or 'id' not in lens or lens['id'] == -1:
+                        lens_type_id = self.get_lens_type_id('Uncategorised')
+                        lens = ObjectFactory.create_lens_details({'name': lens_name, 'lenstype': 'Uncategorised', 'typeid': lens_type_id})
 
-            else:
-                lens_id = lens['id']
+                        self.logger.info('Inserting lens with name [{}] and lens type [{}]'.format(lens['name'], lens['lenstype']))
+                        lens_id = self.insert_lens_details(lens, source_id)
+                        lens['id'] = lens_id
 
-            return lens_id
+            return lens['id']
 
     def get_last_lens_id(self):
         query = ("SELECT MAX(id) FROM lens")
