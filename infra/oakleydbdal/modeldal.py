@@ -58,7 +58,7 @@ class ModelDal(object):
         cnx = self.connection_pool.get_connection()
         cursor = cnx.cursor()
 
-        data = ( model_name, style_id, sku, now, now)
+        data = (model_name, style_id, sku, now, now)
 
         self.logger.debug("Getting model id with query [%s] and data [%s]", query, data)
 
@@ -92,6 +92,25 @@ class ModelDal(object):
 
         return ret_id
 
+    def get_fit_id(self, fit):
+        query = "SELECT id, name FROM fit WHERE name = %s"
+
+        cnx = self.connection_pool.get_connection()
+        cursor = cnx.cursor()
+
+        data = (fit,)
+        cursor.execute(query, data)
+
+        ret_id = -1
+        for c_id, c_name in cursor:
+            if c_name == fit:
+                ret_id = c_id
+
+        cursor.close()
+        self.connection_pool.release_connection(cnx)
+
+        return ret_id
+
     #style_id, model_name, model_sku, model_framecolour, model_lens, fit_id, model_listprice, model_url
     def insert_model(self,  model, style_id, lens_id, fit_id, source_id):
 
@@ -113,8 +132,10 @@ class ModelDal(object):
 
         cnx.commit()
 
+        model_id = int(cursor.lastrowid)
+
         cursor.close()
         self.connection_pool.release_connection(cnx)
 
-        model_id = self.get_model_id(style_id, model['name'], model['sku'])
+        # model_id = self.get_model_id(style_id, model['name'], model['sku'])
         return model_id

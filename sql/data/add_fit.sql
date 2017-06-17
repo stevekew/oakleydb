@@ -1,4 +1,5 @@
-INSERT INTO fit (id, name, sourceid) 
-VALUES
-(0, 'Standard', 0),
-(1, 'Asian', 0);
+INSERT INTO fit (sourceid, name)
+SELECT id, 'Standard' FROM source where name = 'admin';
+INSERT INTO fit (sourceid, name)
+SELECT id, 'Asian' FROM source where name = 'admin';
+

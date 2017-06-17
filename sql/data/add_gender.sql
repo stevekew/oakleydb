@@ -1,5 +1,7 @@
-INSERT INTO gender (id, name, sourceid) 
-VALUES 
-(0, 'Mens', 0),
-(1, 'Womens', 0),
-(2, 'Unisex', 0);
+INSERT INTO gender (sourceid, name)
+SELECT id, 'Mens' FROM source where name = 'admin';
+INSERT INTO gender (sourceid, name)
+SELECT id, 'Womens' FROM source where name = 'admin';
+INSERT INTO gender (sourceid, name)
+SELECT id, 'Unisex' FROM source where name = 'admin';
+

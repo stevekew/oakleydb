@@ -1,1 +1,2 @@
-INSERT INTO lenstype SELECT MAX(id)+1, 'Uncategorised', 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,  0 FROM lenstype
+INSERT INTO lenstype (sourceid, name, validfrom) 
+SELECT id, 'Uncategorised', CURRENT_TIMESTAMP FROM source WHERE name = 'admin'

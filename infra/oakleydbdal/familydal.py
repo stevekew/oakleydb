@@ -91,20 +91,20 @@ class FamilyDal(object):
 
     def insert_family(self, family_name, source_id):
         add_family = ("INSERT INTO family "
-                      "(id, name, sourceid, validfrom) "
-                      "VALUES (%s, %s, %s, %s)")
+                      "(name, sourceid, validfrom) "
+                      "VALUES (%s, %s, %s)")
 
         now = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())
-
-        family_id = self.get_last_family_id() + 1
 
         cnx = self.connection_pool.get_connection()
         cursor = cnx.cursor()
 
-        data_family = (family_id, family_name, source_id, now)
+        data_family = (family_name, source_id, now)
         cursor.execute(add_family, data_family)
 
         cnx.commit()
+
+        family_id = int(cursor.lastrowid)
 
         cursor.close()
         self.connection_pool.release_connection(cnx)

@@ -150,20 +150,20 @@ class StyleDal(object):
 
     def insert_style(self, style_name, url, source_id):
         add_style = ("INSERT INTO style "
-                       "(id, name, sourceid, url, validfrom) "
-                       "VALUES (%s, %s, %s, %s, %s)")
+                       "(name, sourceid, url, validfrom) "
+                       "VALUES (%s, %s, %s, %s)")
 
         now = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())
-
-        style_id = self.get_last_style_id() + 1
 
         cnx = self.connection_pool.get_connection()
         cursor = cnx.cursor()
 
-        data_style = (style_id, style_name, source_id, url, now)
+        data_style = (style_name, source_id, url, now)
         cursor.execute(add_style, data_style)
 
         cnx.commit()
+
+        style_id = int(cursor.lastrowid)
 
         cursor.close()
         self.connection_pool.release_connection(cnx)

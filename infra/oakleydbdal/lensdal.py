@@ -60,7 +60,6 @@ class LensDal(object):
         return lens_details
 
     def get_or_create_lens_id(self, lens_name, lens_type, frame_family, source_id):
-        # lens_type = 'Eyewear'
             lens_id = -1
 
             if lens_name is None or len(lens_name) == 0:
@@ -134,23 +133,22 @@ class LensDal(object):
     def insert_lens_details(self, lens_details, source_id):
 
         query = ("INSERT INTO lens "
-                 "(id, name, base, coating, transmission, transindex, purpose, lighting, url, lenstypeid, sourceid, validfrom) "
-                 "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
+                 "(name, base, coating, transmission, transindex, purpose, lighting, url, lenstypeid, sourceid, validfrom) "
+                 "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
 
         now = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())
-
-        lens_id = self.get_last_lens_id() + 1
 
         cnx = self.connection_pool.get_connection()
         cursor = cnx.cursor()
 
-        query_data = (
-        lens_id, lens_details['name'], lens_details['base'], lens_details['coating'], lens_details['transmission'],
-        lens_details['transindex'], lens_details['purpose'], lens_details['lighting'], lens_details['url'],
-        lens_details['typeid'], source_id, now)
+        query_data = ( lens_details['name'], lens_details['base'], lens_details['coating'], lens_details['transmission'],
+                        lens_details['transindex'], lens_details['purpose'], lens_details['lighting'], lens_details['url'],
+                        lens_details['typeid'], source_id, now)
         cursor.execute(query, query_data)
 
         cnx.commit()
+
+        lens_id = int(cursor.lastrowid)
 
         cursor.close()
         self.connection_pool.release_connection(cnx)
@@ -191,20 +189,20 @@ class LensDal(object):
 
     def insert_lens_type(self, type_name, source_id):
         query = ("INSERT INTO lenstype "
-                 "(id, name, sourceid, validfrom) "
-                 "VALUES (%s, %s, %s, %s)")
+                 "(name, sourceid, validfrom) "
+                 "VALUES (%s, %s, %s)")
 
         now = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())
-
-        type_id = self.get_last_lens_type_id() + 1
 
         cnx = self.connection_pool.get_connection()
         cursor = cnx.cursor()
 
-        query_data = (type_id, type_name, source_id, now)
+        query_data = (type_name, source_id, now)
         cursor.execute(query, query_data)
 
         cnx.commit()
+
+        type_id = int(cursor.lastrowid)
 
         cursor.close()
         self.connection_pool.release_connection(cnx)

@@ -1,7 +1,9 @@
-INSERT INTO basecurve (id, name, sourceid) 
-VALUES 
-(0, '4', 0),
-(1, '6', 0),
-(2, '8.75', 0),
-(3, 'Toric', 0);
+INSERT INTO basecurve (sourceid, name)
+SELECT id, '4' FROM source WHERE name = 'admin';
+INSERT INTO basecurve (sourceid, name)
+SELECT id, '6' FROM source WHERE name = 'admin';
+INSERT INTO basecurve (sourceid, name)
+SELECT id, '8.75' FROM source WHERE name = 'admin';
+INSERT INTO basecurve (sourceid, name)
+SELECT id, 'Toric' FROM source WHERE name = 'admin';
 

@@ -59,20 +59,20 @@ class MappingDal(object):
 
     def insert_style_family_mapping(self, style_id, family_id, source_id):
         query = ("INSERT INTO familystylemap "
-                 "(id, styleid, familyid, sourceid, validfrom) "
-                 "VALUES (%s, %s, %s, %s, %s)")
+                 "(styleid, familyid, sourceid, validfrom) "
+                 "VALUES (%s, %s, %s, %s)")
 
         now = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())
-
-        mapping_id = self.get_last_style_family_mapping_id() + 1
 
         cnx = self.connection_pool.get_connection()
         cursor = cnx.cursor()
 
-        data = (mapping_id, style_id, family_id, source_id, now)
+        data = (style_id, family_id, source_id, now)
         cursor.execute(query, data)
 
         cnx.commit()
+
+        mapping_id = int(cursor.lastrowid)
 
         cursor.close()
         self.connection_pool.release_connection(cnx)

@@ -70,7 +70,7 @@ if loader_mode == Mode.lenstypes:
             logger.info('inserting [{}]'.format(type_name))
             lens_dal.insert_lens_type(type_name, DATA_SOURCE_O_REVIEW_V1_ARCHIVE)
 
-        logger.info('Done')
+    logger.info('Done')
 
 elif  loader_mode == Mode.lenses:
     logger.info('Processing Lens details')
@@ -191,11 +191,13 @@ elif loader_mode == Mode.models:
             if not model_dal.model_exists(model):
                 model_details = data_loader.get_model_details(model)
 
-                fit_id = 0
+                fit = 'Standard'
                 lens_id = -1
 
                 if 'Asian' in model_details['name']:
-                    fit_id = 1
+                    fit = 'Asian'
+
+                fit_id = model_dal.get_fit_id(fit)
 
                 lens_id = lens_dal.get_or_create_lens_id(model_details['lens'], 'Eyewear', style['family'],
                                                          DATA_SOURCE_O_REVIEW_V1_ARCHIVE)
