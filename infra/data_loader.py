@@ -17,6 +17,7 @@ parser = argparse.ArgumentParser(description='Oakley DB data loader process')
 parser.add_argument('mode', choices=['families', 'styles', 'models', 'lenstypes', 'lenses'],
                     help='The mode to run the loader in')
 parser.add_argument('--family', help='The glasses family to load model details for')
+parser.add_argument('--reverse', action='store_true', help='Reverse the list being processed')
 parser.add_argument('--logfile', help='The name of the log file')
 
 args = parser.parse_args()
@@ -24,6 +25,7 @@ args = parser.parse_args()
 loader_mode = Mode[args.mode]
 process_family = ''
 settings.LOGGING_FILENAME = 'data_loader'
+reverse = args.reverse
 
 if args.family is not None:
     process_family = args.family
@@ -43,15 +45,8 @@ cnx_pool = ConnectionPool(settings.db_config)
 logger.info('Creating data loader with data loader name [{}]'.format(loaderfactory.OREVIEWV1_LOADER))
 data_loader = loaderfactory.get_loader(loaderfactory.OREVIEWV1_LOADER)
 
-# process_glasses_families = False
-# process_glasses_styles = False
-# process_glasses_models = True
-# process_lenstypes = False
-# process_lens_details = False
 
 process = True
-
-# process_family = 'Frogskins'  # ''Other'
 
 if loader_mode == Mode.lenstypes:
     logger.info('Processing Lens types')
@@ -135,7 +130,10 @@ elif loader_mode == Mode.styles:
     # returns a list of styles
     styles = data_loader.get_style_list()
 
-    for style in reversed(styles):
+    if reverse:
+        styles = reversed(styles)
+
+    for style in styles:
         if style['family'] == 'Signature':
             continue
 
@@ -157,11 +155,6 @@ elif loader_mode == Mode.styles:
                 logger.info('Inserting mapping for style [{}]: [{}]->[{}]'.format(style['name'], style_id, family_id))
                 mapping_dal.insert_style_family_mapping(style_id, family_id, DATA_SOURCE_O_REVIEW_V1_ARCHIVE)
 
-    # print styles
-    # logger.info('Retrieving styles...')
-    # styles = sd.get_all_styles()
-    # logger.info('Got [{}] styles'.format(len(styles)))
-
     logger.info('Done')
 
 elif loader_mode == Mode.models:
@@ -182,9 +175,15 @@ elif loader_mode == Mode.models:
 
     logger.info('Loaded [{}] styles for processing'.format(len(styles)))
 
+    if reverse:
+        styles = reversed(styles)
+
     for style in styles:
         logger.info('Processing style [{}]...'.format(style['name']))
         models = data_loader.get_models_for_style(style['name'], style['url'])
+
+        if reverse:
+            models = reversed(models)
 
         for model in models:
             logger.info('Processing model [{}]...'.format(model['name']))
