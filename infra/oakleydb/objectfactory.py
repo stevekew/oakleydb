@@ -67,4 +67,16 @@ class ObjectFactory(object):
         if 'fit' in model:
             details['fit'] = model['fit']
 
+        if 'image' in model:
+            details['image'] = model['image']
+
+        if 'imagesmall' in model:
+            details['imagesmall'] = model['imagesmall']
+
+        if 'upc' in model:
+            details['upc'] = model['upc']
+
+        if 'note' in model:
+            details['note'] = model['note']
+
         return details

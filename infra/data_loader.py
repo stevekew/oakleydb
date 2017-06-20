@@ -10,11 +10,11 @@ from loaders import loaderfactory
 from enum import Enum
 import argparse
 
-Mode = Enum('Mode', 'families styles models lenstypes lenses')
+Mode = Enum('Mode', 'families styles models lenstypes lenses enrichmodels')
 DATA_SOURCE_O_REVIEW_V1_ARCHIVE = 1
 
 parser = argparse.ArgumentParser(description='Oakley DB data loader process')
-parser.add_argument('mode', choices=['families', 'styles', 'models', 'lenstypes', 'lenses'],
+parser.add_argument('mode', choices=['families', 'styles', 'models', 'lenstypes', 'lenses', 'enrichmodels'],
                     help='The mode to run the loader in')
 parser.add_argument('--family', help='The glasses family to load model details for')
 parser.add_argument('--reverse', action='store_true', help='Reverse the list being processed')
@@ -217,7 +217,48 @@ elif loader_mode == Mode.models:
                 logger.info('Model with name [{}] already exists in the database, ignoring...'.format(model['name']))
 
     logger.info('Done')
+elif loader_mode == Mode.enrichmodels:
+    logger.info('Enriching Glasses details')
 
+    logger.info('Creating data access layer...')
+    model_dal = ModelDal(cnx_pool)
+    style_dal = StyleDal(cnx_pool)
+    lens_dal = LensDal(cnx_pool)
+
+    styles = {}
+    if len(process_family) > 0:
+        logger.info('Loading glasses styles from database for family [{}]'.format(process_family))
+        styles = style_dal.get_styles_for_family(process_family)
+    else:
+        logger.info('Loading all glasses styles from database')
+        styles = style_dal.get_all_styles()
+
+    logger.info('Loaded [{}] styles for processing'.format(len(styles)))
+
+    if reverse:
+        styles = reversed(styles)
+
+    for style in styles:
+        logger.info('Processing style [{}]...'.format(style['name']))
+        models = data_loader.get_models_for_style(style['name'], style['url'])
+
+        if reverse:
+            models = reversed(models)
+
+        for model in models:
+            logger.info('Processing model [{}]...'.format(model['name']))
+            if model_dal.model_exists(model):
+                model_details = data_loader.get_model_details(model)
+
+                logger.info('Updating model with name [{}], style [{}], sku [{}]'.format(model_details['name'],
+                                                                                          style['name'],
+                                                                                          model_details['sku']))
+
+                model_dal.update_model(model_details, style['id'], DATA_SOURCE_O_REVIEW_V1_ARCHIVE)
+            else:
+                logger.info('Model with name [{}] does not exist in the database, ignoring...'.format(model['name']))
+
+    logger.info('Done')
 else:
     logger.info('No valid command to process')
     logger.info('Done')

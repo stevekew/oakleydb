@@ -193,38 +193,11 @@ class OReviewLoaderV1(object):
 
             model['sku'] = unicode(sku)
 
-            # model_details = self.parse_details_page(model_url)
-            #
-            # # confirm the SKUs match before processing
-            # process_details = False
-            # if 'SKU#' in model_details:
-            #     if model['sku'] == model_details['SKU#']:
-            #         process_details = True
-            #     else:
-            #         self.logger.error(
-            #             "SKU for model [{}] ([{}]) does not match SKU for model details [{}]. Not processing model details".
-            #                 format(model['name'], model['sku'], model['SKU#']))
-            # else:
-            #     self.logger.error("No SKU found for model details page with URL [{}]".format(model['url']))
+            img = cols[0].find('img')
 
-            # if process_details:
-            #     if 'Frame' in model_details:
-            #         model['frame'] = model_details['Frame']
-            #     if 'Lens' in model_details:
-            #         model['lens'] = model_details['Lens']
-            #     if 'Release Date' in model_details:
-            #         model['releasedate'] = model_details['Release Date']
-            #     if 'Retire Date' in model_details:
-            #         model['retiredate'] = model_details['Retire Date']
-            #     # if '' in model_details: model[''] = model_details['Model']
-            #     # if '' in model_details: model[''] = model_details['SKU#']
-            #     # if '' in model_details: model[''] = model_details['UPC']
-            #     # if '' in model_details: model[''] = model_details['USD']
-            # else:
-            #     model['frame'] = ''
-            #     model['lens'] = ''
-            #     model['releasedate'] = ''
-            #     model['retiredate'] = ''
+            if img is not None:
+                img_src = OReviewLoaderV1.parse_img_src(img['src'])
+                model['imagesmall'] = img_src
 
             models.append(model)
 
@@ -253,8 +226,31 @@ class OReviewLoaderV1(object):
             if len(cols) == 2:
                 if cols[1].string is not None:
                     details[unicode(cols[0].string)] = unicode(cols[1].string)
+                elif cols[1].img is not None:
+                    if 'UPC' in cols[0].string:
+                        details[unicode(cols[0].string)] = OReviewLoaderV1.parse_upc(cols[1].img['src'])
+
+            elif cols[0].img is not None:
+                details[unicode('Image')] = OReviewLoaderV1.parse_img_src(unicode(cols[0].img['src']))
 
         return details
+
+    @staticmethod
+    def parse_upc(upc_str):
+        pos = upc_str.find('upca=')
+        if pos > 0:
+            upc_str = upc_str[pos+5:len(upc_str)]
+
+        return upc_str
+
+    @staticmethod
+    def parse_img_src(img_src):
+        pos = img_src.find('http://')
+
+        if pos > 0:
+            img_src = img_src[pos:len(img_src)]
+
+        return img_src
 
     def parse_lens_list_page(self, url):
         table = self.get_oreview_data_table(url)
@@ -338,10 +334,10 @@ class OReviewLoaderV1(object):
             model_details['frame'] = oreview_model_details['Frame']
         if 'Lens' in oreview_model_details:
             model_details['lens'] = oreview_model_details['Lens']
-        if 'Release Date' in oreview_model_details:
-            model_details['releasedate'] = oreview_model_details['Release Date']
-        if 'Retire Date' in oreview_model_details:
-            model_details['retiredate'] = oreview_model_details['Retire Date']
+        if 'Release Date:' in oreview_model_details:
+            model_details['releasedate'] = oreview_model_details['Release Date:']
+        if 'Retire Date:' in oreview_model_details:
+            model_details['retiredate'] = oreview_model_details['Retire Date:']
         if 'Model' in oreview_model_details:
             model_details['style'] = oreview_model_details['Model']
         if 'SKU#' in oreview_model_details:
@@ -350,5 +346,9 @@ class OReviewLoaderV1(object):
             model_details['upc'] = oreview_model_details['UPC']
         if 'USD' in oreview_model_details:
             model_details['usd'] = oreview_model_details['USD']
+        if 'Image' in oreview_model_details:
+            model_details['image'] = oreview_model_details['Image']
+        if 'Note:' in oreview_model_details:
+            model_details['note'] = oreview_model_details['Note:']
 
         return model_details

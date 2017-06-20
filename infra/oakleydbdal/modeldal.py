@@ -139,3 +139,57 @@ class ModelDal(object):
 
         # model_id = self.get_model_id(style_id, model['name'], model['sku'])
         return model_id
+
+    def update_model(self, model, style_id, source_id):
+
+        query = "UPDATE model SET "
+        data = []
+
+        if 'releasedate' in model and model['releasedate'] is not None:
+            query += "releasedate=%s, "
+            data.append(model['releasedate'])
+
+        if 'retiredate' in model and model['retiredate'] is not None:
+            query += "retiredate=%s, "
+            data.append(model['retiredate'])
+
+        if 'image' in model and model['image'] is not None:
+            query += "image=%s, "
+            data.append(model['image'])
+
+        if 'imagesmall' in model and model['imagesmall'] is not None:
+            query += "imagesmall=%s, "
+            data.append(model['imagesmall'])
+
+        if 'note' in model and model['note'] is not None:
+            query += "note=%s, "
+            data.append(model['note'])
+
+        # TODO: UPC
+        # if 'upc' in model and model['upc'] is not None:
+        #     query += "SET upc=%s "
+        #     data.append(model['upc'])
+
+        query = query.rstrip(' ,')
+
+        # TODO: deal with valid froms etc
+        query += " WHERE name=%s AND sku=%s AND styleid=%s"
+        data.append(model['name'])
+        data.append(model['sku'])
+        data.append(style_id)
+
+        cnx = self.connection_pool.get_connection()
+        cursor = cnx.cursor()
+
+        self.logger.debug("Updating model with query [%s] and data [%s]", query, data)
+
+        cursor.execute(query, data)
+
+        cnx.commit()
+
+        model_id = int(cursor.lastrowid)
+
+        cursor.close()
+        self.connection_pool.release_connection(cnx)
+
+        return model_id
