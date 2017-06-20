@@ -1,6 +1,7 @@
 import urllib2
 import json
 from core.logger import Logger
+import urllib
 
 ARCHIVE_BASE_URL = 'http://web.archive.org/web/{}/{}'
 ERROR_404 = ' 404'
@@ -20,6 +21,15 @@ class ArchiveDotOrg(object):
             self.logger.info("Failed to open URL [{}]: [{}]".format(archive_url, e))
             return False
 
+        if response.code != 200:
+            self.logger.error('Received an error code requesting URL: [{}] code: [{}]'.format(archive_url, response.code))
+            return False
+
+        # if we don't get back an html file, it's probably not a 404 page, so just return true
+        if response.headers.type != 'text/html':
+            return True
+
+        # only search for 404 if the page is html/ text
         html_doc = response.read()
 
         if ERROR_404 in html_doc:
@@ -57,3 +67,17 @@ class ArchiveDotOrg(object):
                     return ARCHIVE_BASE_URL.format(d[1], url)
 
         return None
+
+    # given a url, find the latest valid version and download to a file
+    def download_archived_file(self, url, filename):
+
+        archive_url = self.find_archive_url(url)
+
+        if archive_url is None:
+            print 'Unable to find an archived version of [{}]'.format(url)
+            self.logger.error('Unable to find an archived version of [{}]'.format(url))
+            return
+
+        file_response = urllib.URLopener()
+
+        file_response.retrieve(archive_url, filename)
