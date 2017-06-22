@@ -145,30 +145,41 @@ class ModelDal(object):
         query = "UPDATE model SET "
         data = []
 
+        continu = False
         if 'releasedate' in model and model['releasedate'] is not None:
             query += "releasedate=%s, "
             data.append(model['releasedate'])
+            continu = True
 
         if 'retiredate' in model and model['retiredate'] is not None:
             query += "retiredate=%s, "
             data.append(model['retiredate'])
+            continu = True
 
         if 'image' in model and model['image'] is not None:
             query += "image=%s, "
             data.append(model['image'])
+            continu = True
 
         if 'imagesmall' in model and model['imagesmall'] is not None:
             query += "imagesmall=%s, "
             data.append(model['imagesmall'])
+            continu = True
 
         if 'note' in model and model['note'] is not None:
             query += "note=%s, "
             data.append(model['note'])
+            continu = True
 
         # TODO: UPC
         # if 'upc' in model and model['upc'] is not None:
         #     query += "SET upc=%s "
         #     data.append(model['upc'])
+        #     continu = True
+
+        # no count? just return
+        if not continu:
+            return
 
         query = query.rstrip(' ,')
 
@@ -181,15 +192,13 @@ class ModelDal(object):
         cnx = self.connection_pool.get_connection()
         cursor = cnx.cursor()
 
-        self.logger.debug("Updating model with query [%s] and data [%s]", query, data)
+        self.logger.info("Updating model with query [%s] and data [%s]", query, data)
 
         cursor.execute(query, data)
 
         cnx.commit()
 
-        model_id = int(cursor.lastrowid)
-
         cursor.close()
         self.connection_pool.release_connection(cnx)
 
-        return model_id
+        return
