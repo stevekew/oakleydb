@@ -44,3 +44,4 @@ class OReviewLoaderV2(object):
         return self.parse_database_list_page(DATABASE_URL)
 
     def parse_database_list_page(self, url):
+        print 'parse'

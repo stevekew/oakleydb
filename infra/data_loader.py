@@ -11,7 +11,8 @@ from enum import Enum
 import argparse
 
 Mode = Enum('Mode', 'families styles models lenstypes lenses enrichmodels')
-DATA_SOURCE_O_REVIEW_V1_ARCHIVE = 1
+DATA_SOURCE_O_REVIEW_V1_ARCHIVE = 2
+DATA_SOURCE_OAKLEY_DOT_COM_V1 = 3
 
 parser = argparse.ArgumentParser(description='Oakley DB data loader process')
 parser.add_argument('mode', choices=['families', 'styles', 'models', 'lenstypes', 'lenses', 'enrichmodels'],
