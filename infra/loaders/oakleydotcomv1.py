@@ -63,7 +63,7 @@ class OakleydotcomV1(object):
 
         soup = BeautifulSoup(html_doc, BS_HTML_PARSER)
 
-        script = soup.find_all('script', text=re.compile(r'var utag_data ='))
+        product_script = soup.find_all('script', text=re.compile(r'var utag_data ='))
 
         product_details = soup.find('div', {'class': 'product-attributes'})
 
@@ -71,7 +71,7 @@ class OakleydotcomV1(object):
 
         details = self.parse_product_details(product_details)
 
-        text = script[0].string
+        text = product_script[0].string
         text = text.replace('var utag_data =', '')
 
         json_data = json.loads(text)
@@ -80,8 +80,15 @@ class OakleydotcomV1(object):
         details['Name'] = json_data['product_name'][0].replace('&trade;', '')
         details['SKU'] = json_data['product_sku'][0]
 
+        # categories
+        category_script = soup.find_all('script', text=re.compile(r'categoryName.push'))
+        category_text = category_script[0].string
+
+        categories = re.findall('categoryName.push\("(.+?)"\)', category_text)
+
+        # 'New Sunglasses'
         print details
 
 loader = OakleydotcomV1()
 
-loader.load_from_file('/Users/steve/Projects/php/oakleydb/cp/Oakley Carbon Prime MotoGP Limited Edition.html')
+loader.load_from_file('/home/pi/Projects/oakleydb/cp/Oakley Carbon Prime MotoGP Limited Edition.html')
