@@ -1,69 +1,75 @@
 CREATE TABLE source ( 
-	id                   int  NOT NULL  ,
+	id                   int  NOT NULL  AUTO_INCREMENT,
 	name                 varchar(30)  NOT NULL  ,
 	description          varchar(150)    ,
 	active               bit  NOT NULL DEFAULT 1 ,
 	inserttime           timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-	validfrom            timestamp  NOT NULL DEFAULT '0000-00-00 00:00:00' ,
-	validto              timestamp  NOT NULL DEFAULT '0000-00-00 00:00:00' ,
-	CONSTRAINT pk_source UNIQUE ( id ) 
+	validfrom            timestamp  DEFAULT 0 ,
+	validto              timestamp  DEFAULT 0 ,
+	CONSTRAINT pk_source UNIQUE ( id ) ,
+	CONSTRAINT pk_source_0 PRIMARY KEY ( id )
  ) engine=InnoDB;
 
 CREATE TABLE style ( 
-	id                   int  NOT NULL  ,
+	id                   int  NOT NULL  AUTO_INCREMENT,
 	name                 varchar(100)  NOT NULL  ,
 	basecurveid          int    ,
 	url                  varchar(20000)    ,
 	sourceid             int  NOT NULL  ,
 	inserttime           timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-	validfrom            timestamp  NOT NULL DEFAULT '0000-00-00 00:00:00' ,
-	validto              timestamp  NOT NULL DEFAULT '0000-00-00 00:00:00' ,
-	CONSTRAINT pk_style UNIQUE ( id ) 
+	validfrom            timestamp  DEFAULT 0 ,
+	validto              timestamp  DEFAULT 0 ,
+	CONSTRAINT pk_style UNIQUE ( id ) ,
+	CONSTRAINT pk_style_0 PRIMARY KEY ( id )
  );
 
 CREATE INDEX idx_style ON style ( sourceid );
 
 CREATE TABLE basecurve ( 
-	id                   int  NOT NULL  ,
+	id                   int  NOT NULL  AUTO_INCREMENT,
 	name                 varchar(20)  NOT NULL  ,
 	sourceid             int    ,
-	inserttime           timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP 
+	inserttime           timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+	CONSTRAINT pk_basecurve PRIMARY KEY ( id )
  ) engine=InnoDB;
 
 CREATE INDEX idx_basecurve ON basecurve ( sourceid );
 
 CREATE TABLE collection ( 
-	id                   int  NOT NULL  ,
+	id                   int  NOT NULL  AUTO_INCREMENT,
 	name                 varchar(100)  NOT NULL  ,
 	url                  varchar(2000)    ,
 	sourceid             int    ,
 	inserttime           timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ,
 	validfrom            timestamp   DEFAULT 0 ,
-	validto              timestamp   DEFAULT 0 
+	validto              timestamp   DEFAULT 0 ,
+	CONSTRAINT pk_collection PRIMARY KEY ( id )
  ) engine=InnoDB;
 
 CREATE INDEX idx_collection ON collection ( sourceid );
 
 CREATE TABLE family ( 
-	id                   int  NOT NULL  ,
+	id                   int  NOT NULL  AUTO_INCREMENT,
 	name                 varchar(80)    ,
 	sourceid             int  NOT NULL  ,
 	inserttime           timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-	validfrom            timestamp  NOT NULL DEFAULT '0000-00-00 00:00:00' ,
-	validto              timestamp  NOT NULL DEFAULT '0000-00-00 00:00:00' ,
-	CONSTRAINT pk_family UNIQUE ( id ) 
+	validfrom            timestamp  DEFAULT 0 ,
+	validto              timestamp  DEFAULT 0 ,
+	CONSTRAINT pk_family UNIQUE ( id ) ,
+	CONSTRAINT pk_family_0 PRIMARY KEY ( id )
  );
 
 CREATE INDEX idx_family ON family ( sourceid );
 
 CREATE TABLE familystylemap ( 
-	id                   int  NOT NULL  ,
+	id                   int  NOT NULL  AUTO_INCREMENT,
 	familyid             int  NOT NULL  ,
 	styleid              int  NOT NULL  ,
 	sourceid             int    ,
 	inserttime           timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-	validfrom            timestamp  NOT NULL DEFAULT '0000-00-00 00:00:00' ,
-	validto              timestamp  NOT NULL DEFAULT '0000-00-00 00:00:00' 
+	validfrom            timestamp  DEFAULT 0 ,
+	validto              timestamp  DEFAULT 0 ,
+	CONSTRAINT pk_familystylemap PRIMARY KEY ( id )
  );
 
 CREATE INDEX idx_familystylemap ON familystylemap ( familyid );
@@ -71,50 +77,54 @@ CREATE INDEX idx_familystylemap ON familystylemap ( familyid );
 CREATE INDEX idx_familystylemap_0 ON familystylemap ( styleid );
 
 CREATE TABLE fit ( 
-	id                   int  NOT NULL  ,
+	id                   int  NOT NULL  AUTO_INCREMENT,
 	name                 varchar(30)  NOT NULL  ,
 	sourceid             int    ,
 	inserttime           timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-	CONSTRAINT pk_fit UNIQUE ( id ) 
+	CONSTRAINT pk_fit UNIQUE ( id ) ,
+	CONSTRAINT pk_fit_0 PRIMARY KEY ( id )
  ) engine=InnoDB;
 
 CREATE INDEX idx_fit ON fit ( sourceid );
 
 CREATE TABLE gender ( 
-	id                   int  NOT NULL  ,
+	id                   int  NOT NULL  AUTO_INCREMENT,
 	name                 varchar(30)    ,
 	sourceid             int    ,
 	inserttime           timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-	CONSTRAINT pk_gender UNIQUE ( id ) 
+	CONSTRAINT pk_gender UNIQUE ( id ) ,
+	CONSTRAINT pk_gender_0 PRIMARY KEY ( id )
  ) engine=InnoDB;
 
 CREATE INDEX idx_gender ON gender ( sourceid );
 
 CREATE TABLE lenstype ( 
-	id                   int  NOT NULL  ,
+	id                   int  NOT NULL  AUTO_INCREMENT,
 	name                 varchar(100)  NOT NULL  ,
 	sourceid             int    ,
 	inserttime           timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-	validfrom            timestamp   DEFAULT '0000-00-00 00:00:00' ,
-	validto              timestamp   DEFAULT '0000-00-00 00:00:00' ,
-	CONSTRAINT pk_lenstype UNIQUE ( id ) 
+	validfrom            timestamp  DEFAULT 0 ,
+	validto              timestamp  DEFAULT 0 ,
+	CONSTRAINT pk_lenstype UNIQUE ( id ) ,
+	CONSTRAINT pk_lenstype_0 PRIMARY KEY ( id )
  ) engine=InnoDB;
 
 CREATE INDEX idx_lenstype ON lenstype ( sourceid );
 
 CREATE TABLE material ( 
-	id                   int  NOT NULL  ,
+	id                   int  NOT NULL  AUTO_INCREMENT,
 	name                 varchar(100)  NOT NULL  ,
 	sourceid             int    ,
 	inserttime           timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-	validfrom            timestamp    ,
-	validto              timestamp    
+	validfrom            timestamp  DEFAULT 0  ,
+	validto              timestamp  DEFAULT 0  ,
+	CONSTRAINT pk_material PRIMARY KEY ( id )
  ) engine=InnoDB;
 
 CREATE INDEX idx_material ON material ( sourceid );
 
 CREATE TABLE lens ( 
-	id                   int  NOT NULL  ,
+	id                   int  NOT NULL  AUTO_INCREMENT,
 	name                 varchar(100)  NOT NULL  ,
 	lenstypeid           int    ,
 	base                 varchar(50)  NOT NULL  ,
@@ -128,7 +138,8 @@ CREATE TABLE lens (
 	inserttime           timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ,
 	validfrom            timestamp   DEFAULT 0 ,
 	validto              timestamp   DEFAULT 0 ,
-	CONSTRAINT pk_lens UNIQUE ( id ) 
+	CONSTRAINT pk_lens UNIQUE ( id ) ,
+	CONSTRAINT pk_lens_0 PRIMARY KEY ( id )
  ) engine=InnoDB;
 
 CREATE INDEX idx_lens ON lens ( sourceid );
@@ -136,7 +147,7 @@ CREATE INDEX idx_lens ON lens ( sourceid );
 CREATE INDEX idx_lens_0 ON lens ( lenstypeid );
 
 CREATE TABLE model ( 
-	id                   int  NOT NULL  ,
+	id                   int  NOT NULL  AUTO_INCREMENT,
 	name                 varchar(500)  NOT NULL  ,
 	styleid              int    ,
 	sku                  varchar(20)    ,
@@ -149,9 +160,13 @@ CREATE TABLE model (
 	retiredate           varchar(30)    ,
 	url                  varchar(2000)    ,
 	sourceid             int    ,
+	note                 varchar(100)    ,
+	image                varchar(200)    ,
+	imagesmall           varchar(200)    ,
 	inserttime           timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ,
 	validfrom            timestamp   DEFAULT 0 ,
-	validto              timestamp   DEFAULT 0 
+	validto              timestamp   DEFAULT 0 ,
+	CONSTRAINT pk_model PRIMARY KEY ( id )
  ) engine=InnoDB;
 
 CREATE INDEX idx_model ON model ( sourceid );
