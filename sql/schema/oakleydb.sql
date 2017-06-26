@@ -21,7 +21,7 @@ CREATE TABLE style (
 	validto              timestamp  DEFAULT 0 ,
 	CONSTRAINT pk_style UNIQUE ( id ) ,
 	CONSTRAINT pk_style_0 PRIMARY KEY ( id )
- );
+ ) engine=InnoDB;
 
 CREATE INDEX idx_style ON style ( sourceid );
 
@@ -57,7 +57,7 @@ CREATE TABLE family (
 	validto              timestamp  DEFAULT 0 ,
 	CONSTRAINT pk_family UNIQUE ( id ) ,
 	CONSTRAINT pk_family_0 PRIMARY KEY ( id )
- );
+ ) engine=InnoDB;
 
 CREATE INDEX idx_family ON family ( sourceid );
 
@@ -70,7 +70,7 @@ CREATE TABLE familystylemap (
 	validfrom            timestamp  DEFAULT 0 ,
 	validto              timestamp  DEFAULT 0 ,
 	CONSTRAINT pk_familystylemap PRIMARY KEY ( id )
- );
+ ) engine=InnoDB;
 
 CREATE INDEX idx_familystylemap ON familystylemap ( familyid );
 
