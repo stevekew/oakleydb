@@ -85,10 +85,13 @@ class OakleydotcomV1(object):
         category_text = category_script[0].string
 
         categories = re.findall('categoryName.push\("(.+?)"\)', category_text)
-
+        categories.remove('New Sunglasses')
         # 'New Sunglasses'
         print details
 
 loader = OakleydotcomV1()
 
-loader.load_from_file('/home/pi/Projects/oakleydb/cp/Oakley Carbon Prime MotoGP Limited Edition.html')
+# path = '/home/pi/Projects/oakleydb/cp/Oakley Carbon Prime MotoGP Limited Edition.html'
+path = '/Users/steve/Projects/php/oakleydb/cp/Oakley Carbon Prime MotoGP Limited Edition.html'
+
+loader.load_from_file(path)
