@@ -1,9 +1,9 @@
 <?php
 
-$db_user = '';
-$db_password = '';
-$db_host = '';
-$db_databasename = '';
+$db_user = 'aquariaz_oakley';
+$db_password = 'Lx3SFJg978hB1cE1';
+$db_host = 'aquaria.za.net';
+$db_databasename = 'aquariaz_oakleydb';
 
 $dsn = 'mysql:host='.$db_host.';dbname='.$db_databasename;
 // Connect to the database, run a query, handle errors
@@ -26,7 +26,7 @@ if (!is_numeric($lensId))
 }
 
 
-$statement = $pdo->prepare("SELECT * FROM lens WHERE id = :id");
+$statement = $pdo->prepare("SELECT l.*,t.name as typename FROM lens l join lenstype t on l.lenstypeid = t.id WHERE l.id = :id");
 
 if ($statement === false)
 {
@@ -62,6 +62,7 @@ $row = $statement->fetch(PDO::FETCH_ASSOC);
             echo '<tr><td>Index</td><td>'.htmlentities($row['transindex']).'</td> </tr>';
 	    echo '<tr><td>Purpose</td><td>'.htmlentities($row['purpose']).'</td> </tr>';
 	    echo '<tr><td>Lighting</td><td>'.htmlentities($row['lighting']).'</td> </tr>';
+	    echo '<tr><td>Type</td><td>'.htmlentities($row['typename']).'</td> </tr>';
 ?>
         </table>
    </body>

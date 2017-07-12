@@ -1,0 +1,4 @@
+﻿id,name,inserttime,sourceid
+INT,VAR_STRING,TIMESTAMP,INT
+1,Standard,2017-06-15 15:37:14,1
+2,Asian,2017-06-15 15:37:21,1

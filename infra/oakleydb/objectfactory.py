@@ -79,4 +79,10 @@ class ObjectFactory(object):
         if 'note' in model:
             details['note'] = model['note']
 
+        if 'signature' in model:
+            details['signature'] = model['signature']
+
+        if 'exclusive' in model:
+            details['exclusive'] = model['exclusive']
+
         return details

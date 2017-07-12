@@ -171,11 +171,20 @@ class ModelDal(object):
             data.append(model['note'])
             continu = True
 
-        # TODO: UPC
-        # if 'upc' in model and model['upc'] is not None:
-        #     query += "SET upc=%s "
-        #     data.append(model['upc'])
-        #     continu = True
+        if 'signature' in model and model['signature'] is not None:
+            query += "signature=%s, "
+            data.append(model['signature'])
+            continu = True
+
+        if 'exclusive' in model and model['exclusive'] is not None:
+            query += "exclusive=%s, "
+            data.append(model['exclusive'])
+            continu = True
+
+        if 'upc' in model and model['upc'] is not None:
+            query += "upc=%s "
+            data.append(model['upc'])
+            continu = True
 
         # no count? just return
         if not continu:

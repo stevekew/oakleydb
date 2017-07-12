@@ -1,9 +1,9 @@
 <?php
 
-$db_user = '';
-$db_password = '';
-$db_host = '';
-$db_databasename = '';
+$db_user = 'aquariaz_oakley';
+$db_password = 'Lx3SFJg978hB1cE1';
+$db_host = 'aquaria.za.net';
+$db_databasename = 'aquariaz_oakleydb';
 
 $dsn = 'mysql:host='.$db_host.';dbname='.$db_databasename;
 // Connect to the database, run a query, handle errors
@@ -26,10 +26,12 @@ if ($statement === false)
     </head>
     <body>
         <h2>Oakley DB - Lenses</h2>
+        [<a href="index.php">Sunglasses</a>] [<a href="lenses.php">Lenses</a>]
+        <br />
         <ul>
 <?php while ($row = $statement->fetch(PDO::FETCH_ASSOC)):
             echo '<li>'.htmlentities($row['name']).'<ul>';
-$s2 = $pdo->prepare("SELECT l.id, l.name FROM lens l JOIN lenstype lt on l.typeid = lt.id WHERE lt.name=?");
+$s2 = $pdo->prepare("SELECT l.id, l.name FROM lens l JOIN lenstype lt on l.lenstypeid = lt.id WHERE lt.name=?");
 if ($s2 === false)
 {
     throw new Exception('There was a problem running this query');

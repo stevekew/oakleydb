@@ -348,7 +348,11 @@ class OReviewLoaderV1(object):
             model_details['usd'] = oreview_model_details['USD']
         if 'Image' in oreview_model_details:
             model_details['image'] = oreview_model_details['Image']
-        if 'Note:' in oreview_model_details:
-            model_details['note'] = oreview_model_details['Note:']
+        if 'Notes:' in oreview_model_details:
+            model_details['note'] = oreview_model_details['Notes:']
+        if 'Signature:' in oreview_model_details:
+            model_details['signature'] = oreview_model_details['Signature:']
+        if 'Exclusive:' in oreview_model_details:
+            model_details['exclusive'] = oreview_model_details['Exclusive:']
 
         return model_details

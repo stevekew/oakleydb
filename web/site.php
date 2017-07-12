@@ -1,24 +1,7 @@
 <?php
 
-$db_user = 'aquariaz_oakley';
-$db_password = 'Lx3SFJg978hB1cE1';
-$db_host = 'aquaria.za.net';
-$db_databasename = 'aquariaz_oakleydb';
 
-$dsn = 'mysql:host='.$db_host.';dbname='.$db_databasename;
-// Connect to the database, run a query, handle errors
-$pdo = new PDO($dsn, $db_user, $db_password);
-
-$statement = $pdo->query("SELECT * FROM family");
-
-if ($statement === false)
-{
-    throw new Exception('There was a problem running this query');
-}
-
-?>
-
-<!DOCTYPE html>
+function g
 <html>
     <head>
         <title>Oakley DB</title>
@@ -27,10 +10,10 @@ if ($statement === false)
     <body>
         <h2>Oakley DB</h2>
         [<a href="index.php">Sunglasses</a>] [<a href="lenses.php">Lenses</a>] <form method="post" action="search.php"><label>Search:</label><input type="text" id="query" name="query"/><input type="submit" name = 'search' value="Search" /> </form>
-	<br />
+        <br />
         <ul>
 <?php while ($row = $statement->fetch(PDO::FETCH_ASSOC)): ?>
-        <li><?php 
+        <li><?php
             echo  htmlentities($row['name']);
             $s2 = $pdo->query('SELECT s.* FROM style s JOIN familystylemap m on m.styleid = s.id JOIN family f on m.familyid = f.id WHERE m.familyid='.$row['id'].' ORDER by s.name asc');
             if ($s2 === false)
@@ -47,7 +30,7 @@ if ($statement === false)
               }
               $count_row = $s3->fetch(PDO::FETCH_ASSOC);
               echo '<li><a href="models.php?id='.htmlentities($r2['id']).'">'.htmlentities($r2['name']).'</a> ('.htmlentities($count_row['count']).')</li>';
-            endwhile  
+            endwhile
             ?></ul><?php
       ?></li>
 
@@ -55,3 +38,7 @@ if ($statement === false)
         </ul>
    </body>
 </html>
+
+
+
+?>

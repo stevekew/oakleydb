@@ -1,0 +1,2 @@
+﻿id,name,inserttime,validfrom,validto,sourceid
+INT,VAR_STRING,TIMESTAMP,TIMESTAMP,TIMESTAMP,INT

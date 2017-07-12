@@ -1,0 +1,5 @@
+﻿id,name,inserttime,sourceid
+INT,VAR_STRING,TIMESTAMP,INT
+1,Mens,2017-06-15 15:40:08,1
+2,Womens,2017-06-15 15:40:14,1
+3,Unisex,2017-06-15 15:40:19,1

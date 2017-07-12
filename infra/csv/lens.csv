@@ -1,0 +1,283 @@
+﻿id,name,base,coating,transmission,transindex,purpose,lighting,lenstypeid,url,inserttime,validfrom,validto,sourceid
+INT,VAR_STRING,VAR_STRING,VAR_STRING,VAR_STRING,INT,VAR_STRING,VAR_STRING,INT,VAR_STRING,TIMESTAMP,TIMESTAMP,TIMESTAMP,INT
+1,+Red Iridium,Grey,+Red Iridium,15%,3,Increased Contrast,Medium to Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1075,2017-06-15 16:31:20,2017-06-15 20:31:19,NULL,2
+2,+Red Iridium Polarized,Grey,+Red Iridium,0%,3,Increased Contrast,Medium to Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=2809,2017-06-15 16:31:25,2017-06-15 20:31:24,NULL,2
+3,24K Gold Iridium,Orange,24K Gold Iridium,13%,3,Increased Contrast,Medium To Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1076,2017-06-15 16:31:30,2017-06-15 20:31:30,NULL,2
+4,40% +Red Iridium,Light Grey?,+Red,40%,2,Increased Contrast,,2,http://www.o-review.com/lensdetail.asp?ID=2766,2017-06-15 16:31:35,2017-06-15 20:31:35,NULL,2
+5,Amber Black Iridium Polarized,Amber,Black Iridium,18%,2,Increased Contrast,Medium To Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1824,2017-06-15 16:31:41,2017-06-15 20:31:40,NULL,2
+6,Amber Polarized,Amber,n/a,30%,2,Increased Contrast,Medium to Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1077,2017-06-15 16:31:46,2017-06-15 20:31:45,NULL,2
+7,Black Iridium,Grey,Black Iridium,10%,3,Neutral,Extremely Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1078,2017-06-15 16:31:51,2017-06-15 20:31:51,NULL,2
+8,Black Iridium Polarized,Grey,Black Iridium,9%,3,Neutral,Extremely Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1082,2017-06-15 16:31:57,2017-06-15 20:31:57,NULL,2
+9,Black Persimmon Iridium,Persimmon,Black Iridium,44%,1,Increased Contrast,Flat To Low Light,2,http://www.o-review.com/lensdetail.asp?ID=1083,2017-06-15 16:32:02,2017-06-15 20:32:02,NULL,2
+10,Black Violet Iridium,Light Violet,Black Iridium,28%,2,Increased Contrast,Medium Light,2,http://www.o-review.com/lensdetail.asp?ID=1084,2017-06-15 16:32:08,2017-06-15 20:32:07,NULL,2
+11,Blue Iridium,VR28,Blue Iridium,15%,3,Increased Contrast,Medium To Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1085,2017-06-15 16:32:13,2017-06-15 20:32:12,NULL,2
+12,Blue-Black Iridium,Light Blue,Black Iridium,44%,1,Increased Contrast,Flat To Low Light,2,http://www.o-review.com/lensdetail.asp?ID=1087,2017-06-15 16:32:18,2017-06-15 20:32:17,NULL,2
+13,Bronze,Bronze,n/a,22%,2,Neutral,Medium Light,2,http://www.o-review.com/lensdetail.asp?ID=1088,2017-06-15 16:32:23,2017-06-15 20:32:22,NULL,2
+14,Bronze Polarized,Bronze,n/a,15%,3,Increased Contrast,Extremely Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1089,2017-06-15 16:32:28,2017-06-15 20:32:28,NULL,2
+15,Chrome Iridium,Grey,Chrome Iridium,12%,3,Increased Contrast,Extremely Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=2767,2017-06-15 16:32:33,2017-06-15 20:32:33,NULL,2
+16,Clear,Clear,n/a,93%,0,Neutral,"Very Low Light, Indoor Use",2,http://www.o-review.com/lensdetail.asp?ID=1090,2017-06-15 16:32:38,2017-06-15 20:32:38,NULL,2
+17,Dark Bronze,Dark Bronze,n/a,12%,3,Increased Contrast,Medium to Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1820,2017-06-15 16:32:44,2017-06-15 20:32:43,NULL,2
+18,Dark Grey,Dark Grey,n/a,10%,3,Neutral,Medium To Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1095,2017-06-15 16:32:50,2017-06-15 20:32:50,NULL,2
+19,Deep Blue Polarized,,Blue Iridium,10%,3,Neutral,Extremely Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=2768,2017-06-15 16:32:56,2017-06-15 20:32:55,NULL,2
+20,Emerald Iridium,Grey,Emerald Iridium,13%,3,Neutral,Extremely Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1096,2017-06-15 16:33:02,2017-06-15 20:33:01,NULL,2
+21,Emerald Iridium Polarized,Grey,Emerald Iridium,13%,3,Neutral,Medium to Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1097,2017-06-15 16:33:07,2017-06-15 20:33:06,NULL,2
+22,Emerald Slate Iridium,Slate,Emerald Iridium,24%,2,Neutral,Medium Light,2,http://www.o-review.com/lensdetail.asp?ID=1098,2017-06-15 16:33:12,2017-06-15 20:33:11,NULL,2
+23,Fire Iridium,Amber,Fire Iridium,16%,3,Increased Contrast,Medium To Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1099,2017-06-15 16:33:17,2017-06-15 20:33:16,NULL,2
+24,Fire Iridium Polarized,Amber,Fire Iridium,10%,3,Increased Contrast,Medium to Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1102,2017-06-15 16:33:22,2017-06-15 20:33:22,NULL,2
+25,G20,G20,n/a,20%,3,Neutral,Medium to Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=2769,2017-06-15 16:33:27,2017-06-15 20:33:27,NULL,2
+26,G20 Black Iridium,G20,Black Iridium,15%,3,Increased Contrast,Flat To Medium Light,2,http://www.o-review.com/lensdetail.asp?ID=2557,2017-06-15 16:33:33,2017-06-15 20:33:32,NULL,2
+27,G26 Iridium,Amber,G26 Iridium,26%,2,Increased Contrast,Flat To Medium Light,2,http://www.o-review.com/lensdetail.asp?ID=1103,2017-06-15 16:33:40,2017-06-15 20:33:39,NULL,2
+28,G30 Black Iridium,G30,Black Iridium,32%,3,Increased Contrast,Medium to Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1106,2017-06-15 16:33:46,2017-06-15 20:33:45,NULL,2
+29,G30 Iridium,G30,G30 Iridium,30%,2,Increased Contrast,Flat To Medium Light,2,http://www.o-review.com/lensdetail.asp?ID=1104,2017-06-15 16:33:51,2017-06-15 20:33:51,NULL,2
+30,G30 Persimmon,Persimmon,G30 Iridium,59%,3,Increased Contrast,Medium Light,2,http://www.o-review.com/lensdetail.asp?ID=1107,2017-06-15 16:33:56,2017-06-15 20:33:56,NULL,2
+31,G30 Titanium Iridium,G30,Titanium Iridium,29%,3,Increased Contrast,Medium to Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1838,2017-06-15 16:34:02,2017-06-15 20:34:01,NULL,2
+32,G40,G40,G40 Iridium,35%,2,Increased Contrast,Medium Light,2,http://www.o-review.com/lensdetail.asp?ID=1108,2017-06-15 16:34:07,2017-06-15 20:34:07,NULL,2
+33,Gold Clear Iridium,Clear,Gold Iridium,53%,1,Neutral,Low Light,2,http://www.o-review.com/lensdetail.asp?ID=1109,2017-06-15 16:34:12,2017-06-15 20:34:12,NULL,2
+34,Gold Iridium,Bronze,Gold Iridium,12%,3,Increased Contrast,Extremely Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1110,2017-06-15 16:34:19,2017-06-15 20:34:18,NULL,2
+35,Gold Iridium Polarized,Bronze,Gold Iridium,10%,3,Neutral,Extremely Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1114,2017-06-15 16:34:24,2017-06-15 20:34:24,NULL,2
+36,Gold Polarized,Bronze,n/a,15%,3,Increased Contrast,Extremely Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1115,2017-06-15 16:34:29,2017-06-15 20:34:29,NULL,2
+37,Grey,Grey,n/a,18%,2,Neutral,Medium To Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1116,2017-06-15 16:34:35,2017-06-15 20:34:34,NULL,2
+38,Grey Polarized,Grey,n/a,17%,3,Neutral,Medium To Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1118,2017-06-15 16:34:40,2017-06-15 20:34:40,NULL,2
+39,H.I. Blue,Yellow,Blue Iridium,86%,0,Increased Contrast,Low Light,2,http://www.o-review.com/lensdetail.asp?ID=1120,2017-06-15 16:34:46,2017-06-15 20:34:45,NULL,2
+40,H.I. Persimmon,Persimmon,Blue Iridium,59%,1,Increased Contrast,Flat To Medium Light,2,http://www.o-review.com/lensdetail.asp?ID=1122,2017-06-15 16:34:51,2017-06-15 20:34:51,NULL,2
+41,H.I. Yellow,Yellow,n/a,90%,0,Increased Contrast,Low Light,2,http://www.o-review.com/lensdetail.asp?ID=1125,2017-06-15 16:34:58,2017-06-15 20:34:57,NULL,2
+42,Ice Iridium,Grey,Ice Iridium,10%,3,Neutral,Extremely Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1126,2017-06-15 16:35:08,2017-06-15 20:35:07,NULL,2
+43,Ice Iridium Polarized,Grey,Ice Iridium,9%,3,Neutral,Extremely Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1128,2017-06-15 16:35:13,2017-06-15 20:35:12,NULL,2
+44,Jade Iridium,Grey,G26 Iridium,17%,3,Neutral,Medium To Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=3005,2017-06-15 16:35:18,2017-06-15 20:35:18,NULL,2
+45,Laser Lens,Laser Lens,n/a,0%,0,Increased Contrast,,2,http://www.o-review.com/lensdetail.asp?ID=2639,2017-06-15 16:35:24,2017-06-15 20:35:23,NULL,2
+46,Leather Gold Iridium,Orange,Leather Gold Iridium,13%,3,Increased Contrast,Extremely Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1129,2017-06-15 16:35:29,2017-06-15 20:35:29,NULL,2
+47,Light Blue,Light Blue,n/a,66%,1,Neutral,Flat To Low Light,2,http://www.o-review.com/lensdetail.asp?ID=1130,2017-06-15 16:35:36,2017-06-15 20:35:35,NULL,2
+48,Light Grey,Slate,n/a,39%,2,Increased Contrast,Medium Light,2,http://www.o-review.com/lensdetail.asp?ID=1131,2017-06-15 16:35:41,2017-06-15 20:35:41,NULL,2
+49,Light Grey Polarized,Slate,n/a,39%,2,Neutral,Medium Light,2,http://www.o-review.com/lensdetail.asp?ID=2770,2017-06-15 16:35:46,2017-06-15 20:35:46,NULL,2
+50,OO Black Iridium Polarized,G40,Black Iridium,10%,3,Increased Contrast,Extremely Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=3058,2017-06-15 16:35:51,2017-06-15 20:35:51,NULL,2
+51,OO Blue Iridium,Grey,OO Blue Iridium,14%,3,Neutral,Medium to Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1133,2017-06-15 16:35:56,2017-06-15 20:35:56,NULL,2
+52,OO Grey Polarized,,,,0,,,2,http://www.o-review.com/lensdetail.asp?ID=3313,2017-06-15 16:35:59,2017-06-15 20:35:59,NULL,2
+53,OO Red Iridium,Grey,OO Red Iridium,15%,3,Increased Contrast,Medium To Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1134,2017-06-15 16:36:05,2017-06-15 20:36:05,NULL,2
+54,OO Red Iridium Polarized,G40,+Red Iridium,18%,2,Increased Contrast,Medium Light,2,http://www.o-review.com/lensdetail.asp?ID=3059,2017-06-15 16:36:11,2017-06-15 20:36:11,NULL,2
+55,Persimmon,Persimmon,n/a,61%,1,Increased Contrast,Flat To Medium Light,2,http://www.o-review.com/lensdetail.asp?ID=1135,2017-06-15 16:36:17,2017-06-15 20:36:17,NULL,2
+56,Pink Black Iridium,Pink,Black Iridium,0%,0,Increased Contrast,,2,http://www.o-review.com/lensdetail.asp?ID=2646,2017-06-15 16:36:23,2017-06-15 20:36:22,NULL,2
+57,Pink Iridium,Pink,Pink Iridium,0%,0,Increased Contrast,,2,http://www.o-review.com/lensdetail.asp?ID=2648,2017-06-15 16:36:27,2017-06-15 20:36:27,NULL,2
+58,-Red Iridium,Clear,+Red Iridium,92%,0,Neutral,"Very Low Light, Indoor Use",2,http://www.o-review.com/lensdetail.asp?ID=1839,2017-06-15 16:36:33,2017-06-15 20:36:33,NULL,2
+59,Ruby Clear Iridium,Clear,Ruby Iridium,92%,0,Neutral,"Very Low Light, Indoor Use",2,http://www.o-review.com/lensdetail.asp?ID=1141,2017-06-15 16:36:40,2017-06-15 20:36:39,NULL,2
+60,Ruby Iridium,Grey,Ruby Iridium,14%,3,Neutral,Medium To Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1142,2017-06-15 16:36:46,2017-06-15 20:36:45,NULL,2
+61,Shallow Blue Polarized,,Blue Iridium,20%,3,Increased Contrast,Medium to Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=2772,2017-06-15 16:36:51,2017-06-15 20:36:51,NULL,2
+62,Slate Iridium,Slate,Slate Iridium,23%,2,Neutral,Medium Light,2,http://www.o-review.com/lensdetail.asp?ID=1143,2017-06-15 16:36:57,2017-06-15 20:36:57,NULL,2
+63,Titanium Clear,Clear,Titanium Iridium,54%,1,Neutral,Low Light,2,http://www.o-review.com/lensdetail.asp?ID=1144,2017-06-15 16:37:05,2017-06-15 20:37:05,NULL,2
+64,Titanium Iridium,Bronze,Titanium Iridium,10%,3,Increased Contrast,Extremely Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1145,2017-06-15 16:37:13,2017-06-15 20:37:12,NULL,2
+65,Titanium Iridium Polarized,Bronze,Titanium Iridium,12%,3,Increased Contrast,Medium to Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1146,2017-06-15 16:37:20,2017-06-15 20:37:19,NULL,2
+66,Tungsten Iridium,Bronze,Tungsten Iridium,15%,3,Increased Contrast,Medium to Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=2649,2017-06-15 16:37:26,2017-06-15 20:37:25,NULL,2
+67,Tungsten Iridium Polarized,Bronze,Tungsten Iridium,15%,3,Increased Contrast,Medium to Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=2650,2017-06-15 16:37:31,2017-06-15 20:37:31,NULL,2
+68,Violet,Light Violet,n/a,55%,1,Increased Contrast,Flat To Low Light,2,http://www.o-review.com/lensdetail.asp?ID=1147,2017-06-15 16:37:38,2017-06-15 20:37:38,NULL,2
+69,Violet Iridium,Grey,Violet Iridium,17%,3,Increased Contrast,Medium To Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1148,2017-06-15 16:37:44,2017-06-15 20:37:43,NULL,2
+70,VR28,VR28,n/a,28%,2,Increased Contrast,Flat To Medium Light,2,http://www.o-review.com/lensdetail.asp?ID=1149,2017-06-15 16:37:49,2017-06-15 20:37:49,NULL,2
+71,VR28 Black Iridium,VR28,Black Iridium,18%,3,Increased Contrast,Medium To Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1152,2017-06-15 16:37:55,2017-06-15 20:37:54,NULL,2
+72,VR28 Black Iridium Polarized,VR28,Black Iridium,10%,3,Increased Contrast,Extremely Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=2035,2017-06-15 16:38:01,2017-06-15 20:38:01,NULL,2
+73,VR28 Blue Iridium,VR28,Blue Iridium,26%,2,Increased Contrast,Flat To Low Light,2,http://www.o-review.com/lensdetail.asp?ID=3208,2017-06-15 16:38:07,2017-06-15 20:38:06,NULL,2
+74,VR28 Blue Iridium Polarized,VR28,G30 Iridium,14%,3,Increased Contrast,Extremely Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1153,2017-06-15 16:38:13,2017-06-15 20:38:12,NULL,2
+75,VR28 Gold Iridium,VR28,Gold Iridium,17%,3,Increased Contrast,Medium Light,2,http://www.o-review.com/lensdetail.asp?ID=1154,2017-06-15 16:38:18,2017-06-15 20:38:18,NULL,2
+76,VR28 Gold Iridium Polarized,VR28,Gold Iridium,11%,3,Increased Contrast,Extremely Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=2405,2017-06-15 16:38:24,2017-06-15 20:38:23,NULL,2
+77,VR28 Polarized,VR28,n/a,16%,3,Increased Contrast,Medium To Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=1155,2017-06-15 16:38:29,2017-06-15 20:38:28,NULL,2
+78,VR35 Gold Iridium,VR35,Gold Iridium,23%,2,Increased Contrast,Medium Light,2,http://www.o-review.com/lensdetail.asp?ID=2651,2017-06-15 16:38:34,2017-06-15 20:38:34,NULL,2
+79,VR50,VR50,n/a,50%,1,Increased Contrast,Low to Medium Light,2,http://www.o-review.com/lensdetail.asp?ID=1156,2017-06-15 16:38:41,2017-06-15 20:38:41,NULL,2
+80,VR50 Black Iridium,VR50,Black Iridium,35%,2,Increased Contrast,Medium to Dark,2,http://www.o-review.com/lensdetail.asp?ID=1158,2017-06-15 16:38:46,2017-06-15 20:38:46,NULL,2
+81,VR50 Emerald Iridium,VR50,Emerald Idirium,46%,1,Increased Contrast,Flat To Low Light,2,http://www.o-review.com/lensdetail.asp?ID=1159,2017-06-15 16:38:51,2017-06-15 20:38:51,NULL,2
+82,VR50 Gold Iridium,VR50,Gold Iridium,35%,2,Increased Contrast,Medium Light,2,http://www.o-review.com/lensdetail.asp?ID=1160,2017-06-15 16:38:56,2017-06-15 20:38:55,NULL,2
+83,VR50 Pink Iridium,,,,0,,,2,http://www.o-review.com/lensdetail.asp?ID=3207,2017-06-15 16:38:59,2017-06-15 20:38:58,NULL,2
+84,VR70,VR70,n/a,70%,1,Increased Contrast,Flat To Low Light,2,http://www.o-review.com/lensdetail.asp?ID=2424,2017-06-15 16:39:08,2017-06-15 20:39:08,NULL,2
+85,Warm Grey,Warm Grey,n/a,10%,3,Neutral,Extremely Bright Light,2,http://www.o-review.com/lensdetail.asp?ID=2390,2017-06-15 16:39:13,2017-06-15 20:39:13,NULL,2
+86,20% Grey,Grey,n/a,20%,3,Neutral,Medium To Bright Light,3,http://www.o-review.com/lensdetail.asp?ID=2882,2017-06-15 16:39:18,2017-06-15 20:39:18,NULL,2
+87,45% Grey,Grey,n/a,45%,2,Neutral,Medium Light,3,http://www.o-review.com/lensdetail.asp?ID=2883,2017-06-15 16:39:23,2017-06-15 20:39:23,NULL,2
+88,60% Grey,Grey,n/a,60%,1,Neutral,Low to Medium Light,3,http://www.o-review.com/lensdetail.asp?ID=2884,2017-06-15 16:39:28,2017-06-15 20:39:28,NULL,2
+89,Blue,Blue,n/a,26%,3,Increased Contrast,Medium To Bright Light,3,http://www.o-review.com/lensdetail.asp?ID=2885,2017-06-15 16:39:34,2017-06-15 20:39:33,NULL,2
+90,Bronze,Bronze,n/a,0%,3,Increased Contrast,Medium To Bright Light,3,http://www.o-review.com/lensdetail.asp?ID=2886,2017-06-15 16:39:39,2017-06-15 20:39:39,NULL,2
+91,Black-Clear Gradient,Clear,Black Gradient,35%,2,Neutral,Very Low Light,4,http://www.o-review.com/lensdetail.asp?ID=2391,2017-06-15 16:39:44,2017-06-15 20:39:44,NULL,2
+92,Black-Grey Gradient,Grey,Black Gradient,16%,3,Neutral,Medium To Bright Light,4,http://www.o-review.com/lensdetail.asp?ID=2392,2017-06-15 16:39:49,2017-06-15 20:39:49,NULL,2
+93,Black-Violet Gradient,Light Violet,Black Gradient,32%,2,Increased Contrast,Flat To Low Light,4,http://www.o-review.com/lensdetail.asp?ID=2393,2017-06-15 16:39:54,2017-06-15 20:39:54,NULL,2
+94,Brown-Clear Gradient,Clear,Brown Gradient,25%,2,Neutral,Very Low Light,4,http://www.o-review.com/lensdetail.asp?ID=2394,2017-06-15 16:40:00,2017-06-15 20:40:00,NULL,2
+95,G40 Black Gradient,G40,Black Gradient,29%,2,Increased Contrast,Medium Light,4,http://www.o-review.com/lensdetail.asp?ID=2395,2017-06-15 16:40:06,2017-06-15 20:40:05,NULL,2
+96,VR50-Brown Gradient,VR50,Brown Gradient,0%,0,Increased Contrast,Low to Medium Light,4,http://www.o-review.com/lensdetail.asp?ID=2556,2017-06-15 16:40:12,2017-06-15 20:40:11,NULL,2
+97,Anti-Fog Clear,Clear,Anti-Fog,88%,0,Neutral,Very Low Light,5,http://www.o-review.com/lensdetail.asp?ID=2785,2017-06-15 16:40:17,2017-06-15 20:40:16,NULL,2
+98,Black Iridium,Persimmon,Black Iridium,28%,3,Increased Contrast,Medium To Bright Light,5,http://www.o-review.com/lensdetail.asp?ID=1079,2017-06-15 16:40:22,2017-06-15 20:40:21,NULL,2
+99,Blue,Blue,n/a,56%,1,Increased Contrast,Low to Medium Light,5,http://www.o-review.com/lensdetail.asp?ID=2786,2017-06-15 16:40:28,2017-06-15 20:40:28,NULL,2
+100,Clear,Clear,n/a,90%,0,Neutral,Very Low Light,5,http://www.o-review.com/lensdetail.asp?ID=1091,2017-06-15 16:40:33,2017-06-15 20:40:33,NULL,2
+101,Dark Grey,Dark Grey,n/a,24%,2,Neutral,Medium Light,5,http://www.o-review.com/lensdetail.asp?ID=2787,2017-06-15 16:40:39,2017-06-15 20:40:38,NULL,2
+102,Fire Iridium,Amber,Fire Iridium,52%,3,Increased Contrast,Medium To Bright Light,5,http://www.o-review.com/lensdetail.asp?ID=1100,2017-06-15 16:40:44,2017-06-15 20:40:43,NULL,2
+103,Gold Iridium,VR50,Gold Iridium,23%,3,Increased Contrast,Medium To Bright Light,5,http://www.o-review.com/lensdetail.asp?ID=1111,2017-06-15 16:40:49,2017-06-15 20:40:48,NULL,2
+104,Grey,Grey,n/a,50%,2,Neutral,Medium To Bright Light,5,http://www.o-review.com/lensdetail.asp?ID=1117,2017-06-15 16:40:54,2017-06-15 20:40:53,NULL,2
+105,Grey Polarized,Grey,n/a,21%,3,Neutral,Medium To Bright Light,5,http://www.o-review.com/lensdetail.asp?ID=1119,2017-06-15 16:41:00,2017-06-15 20:41:00,NULL,2
+106,H.I. Persimmon,Persimmon,Blue Iridium,32%,1,Increased Contrast,Medium To Bright Light,5,http://www.o-review.com/lensdetail.asp?ID=1123,2017-06-15 16:41:05,2017-06-15 20:41:05,NULL,2
+107,Ice Iridium,Grey,Ice Iridium,42%,3,Neutral,Medium To Bright Light,5,http://www.o-review.com/lensdetail.asp?ID=1127,2017-06-15 16:41:11,2017-06-15 20:41:10,NULL,2
+108,No-Fog Clear,Clear,n/a,88%,0,Neutral,Very Low Light,5,http://www.o-review.com/lensdetail.asp?ID=1132,2017-06-15 16:41:17,2017-06-15 20:41:17,NULL,2
+109,Persimmon,Persimmon,n/a,62%,1,Increased Contrast,Flat To Low Light,5,http://www.o-review.com/lensdetail.asp?ID=1136,2017-06-15 16:41:22,2017-06-15 20:41:21,NULL,2
+110,VR28,VR28,n/a,28%,2,Increased Contrast,Medium To Bright Light,5,http://www.o-review.com/lensdetail.asp?ID=1150,2017-06-15 16:41:28,2017-06-15 20:41:27,NULL,2
+111,Blue Iridium,Amber,Blue Iridium,16%,3,Increased Contrast,Medium To Bright Light,6,http://www.o-review.com/lensdetail.asp?ID=2775,2017-06-15 16:41:33,2017-06-15 20:41:32,NULL,2
+112,Bronze,Bronze,n/a,22%,2,Increased Contrast,Medium Light,6,http://www.o-review.com/lensdetail.asp?ID=2644,2017-06-15 16:41:38,2017-06-15 20:41:37,NULL,2
+113,Bronze Iridium,Bronze,Gold Iridium,12%,3,Increased Contrast,Medium to Bright Light,6,http://www.o-review.com/lensdetail.asp?ID=2633,2017-06-15 16:41:43,2017-06-15 20:41:42,NULL,2
+114,Bronze Mirror,Bronze,Gold Iridium,12%,3,Increased Contrast,Medium to Bright Light,6,http://www.o-review.com/lensdetail.asp?ID=2641,2017-06-15 16:41:48,2017-06-15 20:41:47,NULL,2
+115,Orange Iridium,Amber,Orange Iridium,16%,3,Increased Contrast,,6,http://www.o-review.com/lensdetail.asp?ID=2634,2017-06-15 16:41:53,2017-06-15 20:41:53,NULL,2
+116,Orange Mirror,Amber,Orange Iridium,16%,3,Increased Contrast,,6,http://www.o-review.com/lensdetail.asp?ID=2642,2017-06-15 16:42:00,2017-06-15 20:42:00,NULL,2
+117,Red Iridium,Amber,Orange Iridium,16%,3,Increased Contrast,,6,http://www.o-review.com/lensdetail.asp?ID=2635,2017-06-15 16:42:07,2017-06-15 20:42:07,NULL,2
+118,Rust,Rust,n/a,0%,0,Increased Contrast,,6,http://www.o-review.com/lensdetail.asp?ID=2636,2017-06-15 16:42:13,2017-06-15 20:42:13,NULL,2
+119,Violet Mirror,Amber,Violet Iridium,17%,3,Increased Contrast,,6,http://www.o-review.com/lensdetail.asp?ID=2643,2017-06-15 16:42:19,2017-06-15 20:42:18,NULL,2
+120,+Red Iridium Photochromatic,,,,0,,,7,http://www.o-review.com/lensdetail.asp?ID=3209,2017-06-15 16:42:22,2017-06-15 20:42:21,NULL,2
+121,Black Persimmon to Grey Transition,Persimmon to Grey,Black Iridium,42%,2,Increased Contrast,Changing Conditions to Sunny,12,http://www.o-review.com/lensdetail.asp?ID=2396,2017-06-15 16:42:28,2017-06-15 20:42:27,NULL,2
+122,G40 Transition,G40,n/a,40%,2,Increased Contrast,Medium to Extremely Bright Light,12,http://www.o-review.com/lensdetail.asp?ID=2638,2017-06-15 16:42:33,2017-06-15 20:42:32,NULL,2
+123,Light Grey Transition,Light Grey to Dark Grey Transition,n/a,38%,2,Neutral,Medium to Extremely Bright Light,12,http://www.o-review.com/lensdetail.asp?ID=2771,2017-06-15 16:42:38,2017-06-15 20:42:38,NULL,2
+124,Persimmon Photochromatic,,,,0,,,7,http://www.o-review.com/lensdetail.asp?ID=3210,2017-06-15 16:42:41,2017-06-15 20:42:41,NULL,2
+125,VR50 Photochromatic,VR50 (15-50%),n/a,50%,2,Increased Contrast,Changing Conditions to Sunny,7,http://www.o-review.com/lensdetail.asp?ID=2834,2017-06-15 16:42:46,2017-06-15 20:42:45,NULL,2
+126,Black Iridium,Grey,Black Iridium,10%,3,Neutral,Medium To Bright Light,8,http://www.o-review.com/lensdetail.asp?ID=2407,2017-06-15 16:42:51,2017-06-15 20:42:50,NULL,2
+127,Black Iridium Polarized,Grey,Black Iridium,9%,3,Neutral,Extremely Bright Light,8,http://www.o-review.com/lensdetail.asp?ID=2406,2017-06-15 16:42:57,2017-06-15 20:42:56,NULL,2
+128,Clear,Clear,n/a,93%,0,Neutral,"Very Low Light, Indoor Use",8,http://www.o-review.com/lensdetail.asp?ID=2422,2017-06-15 16:43:02,2017-06-15 20:43:01,NULL,2
+129,Clear A/R,Clear,n/a,97%,0,Neutral,"Very Low Light, Indoor Use",8,http://www.o-review.com/lensdetail.asp?ID=2037,2017-06-15 16:43:08,2017-06-15 20:43:08,NULL,2
+130,Fire Iridium,Amber,Fire Iridium,16%,3,Increased Contrast,Medium To Bright Light,8,http://www.o-review.com/lensdetail.asp?ID=2413,2017-06-15 16:43:14,2017-06-15 20:43:13,NULL,2
+131,G30 Iridium,G30,G30 Iridium,30%,2,Increased Contrast,Medium To Bright Light,8,http://www.o-review.com/lensdetail.asp?ID=2418,2017-06-15 16:43:19,2017-06-15 20:43:19,NULL,2
+132,Gold Iridium,Bronze,Gold Iridium,12%,3,Increased Contrast,Extremely Bright Light,8,http://www.o-review.com/lensdetail.asp?ID=2409,2017-06-15 16:43:25,2017-06-15 20:43:25,NULL,2
+133,Gold Iridium Polarized,Bronze,Gold Iridium,9%,3,Neutral,Extremely Bright Light,8,http://www.o-review.com/lensdetail.asp?ID=2408,2017-06-15 16:43:31,2017-06-15 20:43:30,NULL,2
+134,Grey,Grey,n/a,18%,2,Neutral,Medium To Bright Light,8,http://www.o-review.com/lensdetail.asp?ID=2421,2017-06-15 16:43:35,2017-06-15 20:43:35,NULL,2
+135,Grey Polarized,Grey,n/a,17%,3,Neutral,Medium To Bright Light,8,http://www.o-review.com/lensdetail.asp?ID=2420,2017-06-15 16:43:41,2017-06-15 20:43:40,NULL,2
+136,Grey Polarized - Back A/R,Grey,n/a,17%,3,Neutral,Medium To Bright Light,8,http://www.o-review.com/lensdetail.asp?ID=2036,2017-06-15 16:43:46,2017-06-15 20:43:45,NULL,2
+137,Ice Iridium,Grey,Ice Iridium,10%,3,Neutral,Extremely Bright Light,8,http://www.o-review.com/lensdetail.asp?ID=2410,2017-06-15 16:43:51,2017-06-15 20:43:50,NULL,2
+138,Ice Iridium Polarized,Grey,Ice Iridium,9%,3,Neutral,Extremely Bright Light,8,http://www.o-review.com/lensdetail.asp?ID=2411,2017-06-15 16:43:56,2017-06-15 20:43:55,NULL,2
+139,Light Blue,Light Blue,n/a,66%,1,Neutral,Flat To Low Light,8,http://www.o-review.com/lensdetail.asp?ID=2412,2017-06-15 16:44:01,2017-06-15 20:44:00,NULL,2
+140,Persimmon,Persimmon,n/a,61%,1,Increased Contrast,Flat To Medium Light,8,http://www.o-review.com/lensdetail.asp?ID=2419,2017-06-15 16:44:06,2017-06-15 20:44:06,NULL,2
+141,VR28,VR28,n/a,28%,2,Increased Contrast,Flat To Medium Light,8,http://www.o-review.com/lensdetail.asp?ID=2417,2017-06-15 16:44:12,2017-06-15 20:44:11,NULL,2
+142,VR28 Black Iridium,VR28,Black Iridium,18%,3,Increased Contrast,Medium To Bright Light,8,http://www.o-review.com/lensdetail.asp?ID=2416,2017-06-15 16:44:17,2017-06-15 20:44:16,NULL,2
+143,VR28 Black Iridium Polarized,VR28,Black Iridium,10%,3,Increased Contrast,Extremely Bright Light,8,http://www.o-review.com/lensdetail.asp?ID=2415,2017-06-15 16:44:22,2017-06-15 20:44:21,NULL,2
+144,VR28 Polarized,VR28,n/a,16%,3,Increased Contrast,Medium To Bright Light,8,http://www.o-review.com/lensdetail.asp?ID=2414,2017-06-15 16:44:27,2017-06-15 20:44:26,NULL,2
+145,VR28 Polarized - Back A/R,VR28,n/a,10%,3,Increased Contrast,Extremely Bright Light,8,http://www.o-review.com/lensdetail.asp?ID=2034,2017-06-15 16:44:33,2017-06-15 20:44:32,NULL,2
+146,Black Iridium,Persimmon,Black Iridium,15%,3,Neutral,Medium To Bright Light,9,http://www.o-review.com/lensdetail.asp?ID=1080,2017-06-15 16:44:38,2017-06-15 20:44:37,NULL,2
+147,Clear,Clear,n/a,81%,0,Neutral,Very Low Light,9,http://www.o-review.com/lensdetail.asp?ID=1092,2017-06-15 16:44:43,2017-06-15 20:44:43,NULL,2
+148,Gold Iridium,VR50,Gold Iridium,22%,3,Increased Contrast,Medium To Bright Light,9,http://www.o-review.com/lensdetail.asp?ID=1112,2017-06-15 16:44:48,2017-06-15 20:44:48,NULL,2
+149,Persimmon,Persimmon,n/a,55%,1,Increased Contrast,Flat To Low Light,9,http://www.o-review.com/lensdetail.asp?ID=1137,2017-06-15 16:44:54,2017-06-15 20:44:53,NULL,2
+150,Pink Iridium,Clear,Pink Iridium,57%,1,Increased Contrast,Flat To Medium Light,9,http://www.o-review.com/lensdetail.asp?ID=1140,2017-06-15 16:44:59,2017-06-15 20:44:58,NULL,2
+151,Black Iridium,Persimmon,Black Iridium,18%,3,Neutral,Medium To Bright Light,10,http://www.o-review.com/lensdetail.asp?ID=1081,2017-06-15 16:45:04,2017-06-15 20:45:03,NULL,2
+152,Blue Iridium,Grey,Blue Iridium,30%,3,Increased Contrast,Medium To Bright Light,10,http://www.o-review.com/lensdetail.asp?ID=1086,2017-06-15 16:45:09,2017-06-15 20:45:09,NULL,2
+153,Clear,Clear,n/a,81%,0,Neutral,Very Low Light,10,http://www.o-review.com/lensdetail.asp?ID=1093,2017-06-15 16:45:14,2017-06-15 20:45:14,NULL,2
+154,Fire Iridium,Amber,Fire Iridium,16%,3,Increased Contrast,Medium To Bright Light,10,http://www.o-review.com/lensdetail.asp?ID=1101,2017-06-15 16:45:20,2017-06-15 20:45:19,NULL,2
+155,G30 Iridium,G30,G30 Iridium,30%,2,Increased Contrast,Medium To Bright Light,10,http://www.o-review.com/lensdetail.asp?ID=1105,2017-06-15 16:45:26,2017-06-15 20:45:25,NULL,2
+156,Gold Clear Iridium,Clear,Gold Iridium,35%,2,Increased Contrast,Flat To Low Light,10,http://www.o-review.com/lensdetail.asp?ID=2784,2017-06-15 16:45:32,2017-06-15 20:45:31,NULL,2
+157,Gold Iridium,VR50,Gold Iridium,20%,3,Increased Contrast,Medium To Bright Light,10,http://www.o-review.com/lensdetail.asp?ID=1113,2017-06-15 16:45:37,2017-06-15 20:45:36,NULL,2
+158,H.I. Amber Polarized,Amber,Blue Iridium,25%,2,Increased Contrast,Medium To Bright Light,10,http://www.o-review.com/lensdetail.asp?ID=2788,2017-06-15 16:45:42,2017-06-15 20:45:41,NULL,2
+159,H.I. Blue,Yellow,Blue Iridium,81%,0,Increased Contrast,Flat To Very Low Light,10,http://www.o-review.com/lensdetail.asp?ID=1121,2017-06-15 16:45:47,2017-06-15 20:45:46,NULL,2
+160,H.I. Persimmon,Persimmon,Blue Iridium,63%,1,Increased Contrast,Flat To Low Light,10,http://www.o-review.com/lensdetail.asp?ID=1124,2017-06-15 16:45:54,2017-06-15 20:45:53,NULL,2
+161,H.I. Yellow,Yellow,n/a,88%,0,Increased Contrast,Low Light,10,http://www.o-review.com/lensdetail.asp?ID=2780,2017-06-15 16:45:59,2017-06-15 20:45:59,NULL,2
+162,Persimmon,Persimmon,n/a,62%,1,Increased Contrast,Flat To Low Light,10,http://www.o-review.com/lensdetail.asp?ID=1138,2017-06-15 16:46:04,2017-06-15 20:46:04,NULL,2
+163,Ruby Clear Iridium,Clear,Ruby Iridium,63%,1,Increased Contrast,Flat To Low Light,10,http://www.o-review.com/lensdetail.asp?ID=2783,2017-06-15 16:46:11,2017-06-15 20:46:11,NULL,2
+164,Titanium Clear,Clear,Titanium Iridium,72%,1,Neutral,Low Light,10,http://www.o-review.com/lensdetail.asp?ID=2798,2017-06-15 16:46:17,2017-06-15 20:46:16,NULL,2
+165,VR28,VR28,n/a,28%,2,Increased Contrast,Medium To Bright Light,10,http://www.o-review.com/lensdetail.asp?ID=1151,2017-06-15 16:46:23,2017-06-15 20:46:22,NULL,2
+166,VR28 Polarized,VR28,n/a,14%,3,Increased Contrast,Medium To Bright Light,10,http://www.o-review.com/lensdetail.asp?ID=2855,2017-06-15 16:46:28,2017-06-15 20:46:28,NULL,2
+167,VR50,VR50,n/a,50%,1,Increased Contrast,Flat To Medium Light,10,http://www.o-review.com/lensdetail.asp?ID=1157,2017-06-15 16:46:35,2017-06-15 20:46:34,NULL,2
+168,VR50 Emerald Iridium,VR50,Emerald Iridium,30%,2,Increased Contrast,Flat To Low Light,10,http://www.o-review.com/lensdetail.asp?ID=2782,2017-06-15 16:46:40,2017-06-15 20:46:40,NULL,2
+169,Clear,Clear,n/a,90%,0,Neutral,Very Low Light,11,http://www.o-review.com/lensdetail.asp?ID=1094,2017-06-15 16:46:45,2017-06-15 20:46:45,NULL,2
+170,H.I. Yellow,Yellow,n/a,75%,1,Increased Contrast,Low Light,11,http://www.o-review.com/lensdetail.asp?ID=2781,2017-06-15 16:46:50,2017-06-15 20:46:50,NULL,2
+171,Laser Lens,Laser Lens,n/a,0%,0,Increased Contrast,,11,http://www.o-review.com/lensdetail.asp?ID=2640,2017-06-15 16:46:57,2017-06-15 20:46:56,NULL,2
+172,Persimmon,Persimmon,n/a,62%,1,Increased Contrast,Flat To Low Light,11,http://www.o-review.com/lensdetail.asp?ID=1139,2017-06-15 16:47:02,2017-06-15 20:47:01,NULL,2
+173,Black Persimmon Transition,,,,0,,,12,http://www.o-review.com/lensdetail.asp?ID=3212,2017-06-15 16:47:05,2017-06-15 20:47:04,NULL,2
+174,Emerald to Emerald Clear Transition,Grey to Clear Transition,Emerald Iridium,0%,0,Neutral,,12,http://www.o-review.com/lensdetail.asp?ID=2637,2017-06-15 16:47:10,2017-06-15 20:47:09,NULL,2
+175,Grey Transition,Light Grey to Dark Grey (8-38%),n/a,38%,2,Neutral,Changing Conditions to Intense Sun,12,http://www.o-review.com/lensdetail.asp?ID=2707,2017-06-15 16:47:16,2017-06-15 20:47:15,NULL,2
+176,VR50 to Brown Transition,VR50 to Brown,n/a,50%,1,Increased Contrast,Flat to Bright Light,12,http://www.o-review.com/lensdetail.asp?ID=2397,2017-06-15 16:47:21,2017-06-15 20:47:20,NULL,2
+177,"Warm Grey, Clear",,,,0,,,1,,2017-06-15 17:17:54,2017-06-15 21:17:53,NULL,2
+178,OO Black Polarized,,,,0,,,1,,2017-06-15 17:41:04,2017-06-15 21:41:04,NULL,2
+179,Dark Brown Gradient,,,,0,,,1,,2017-06-15 17:53:32,2017-06-15 21:53:32,NULL,2
+180,Clear Black Iridium Photochromic,,,,0,,,1,,2017-06-15 18:02:38,2017-06-15 22:02:38,NULL,2
+181,"Violet Iridium, Grey",,,,0,,,1,,2017-06-15 18:04:05,2017-06-15 22:04:05,NULL,2
+182,Grey / +Red Iridium Polarized,,,,0,,,1,,2017-06-15 18:05:17,2017-06-15 22:05:17,NULL,2
+183,Jade Iridium / Persimmon,,,,0,,,1,,2017-06-15 18:06:22,2017-06-15 22:06:22,NULL,2
+184,OO Blue Iridium Polarized,,,,0,,,1,,2017-06-15 18:06:50,2017-06-15 22:06:50,NULL,2
+185,OO Black Iridium Polarized / H.I. Yellow,,,,0,,,1,,2017-06-15 18:07:09,2017-06-15 22:07:08,NULL,2
+186,VR50 Brown Gradient,,,,0,,,1,,2017-06-15 18:58:10,2017-06-15 22:58:09,NULL,2
+187,?,,,,0,,,1,,2017-06-15 19:27:38,2017-06-15 23:27:38,NULL,2
+188,Black Iridium ,,,,0,,,1,,2017-06-15 19:42:57,2017-06-15 23:42:56,NULL,2
+189,Jade Iridium / +Red / Violet Iridium,,,,0,,,1,,2017-06-15 19:43:25,2017-06-15 23:43:24,NULL,2
+190,Black Iridium / Fire Iridium,,,,0,,,1,,2017-06-15 19:43:42,2017-06-15 23:43:41,NULL,2
+191,+Red Iridium Vented / H.I. Blue,,,,0,,,1,,2017-06-15 19:45:57,2017-06-15 23:45:56,NULL,2
+192,Black Iridium / Light Grey Vented,,,,0,,,1,,2017-06-15 19:46:19,2017-06-15 23:46:19,NULL,2
+193,Ruby VR50 Photochromatic,,,,0,,,1,,2017-06-15 19:49:41,2017-06-15 23:49:40,NULL,2
+194,Slate Iridum,,,,0,,,1,,2017-06-15 20:07:28,2017-06-16 00:07:27,NULL,2
+195,24K Gold Iridium Polarized,,,,0,,,1,,2017-06-15 20:34:59,2017-06-16 00:34:59,NULL,2
+196,Clear Black Photochromatic,,,,0,,,1,,2017-06-15 20:43:54,2017-06-16 00:43:53,NULL,2
+197,Red Gradient,,,,0,,,1,,2017-06-16 02:04:06,2017-06-16 06:04:05,NULL,2
+198,G30 Polarized / VR50,,,,0,,,1,,2017-06-16 02:05:58,2017-06-16 06:05:57,NULL,2
+199,Blue Iridium / Jade Iridium,,,,0,,,1,,2017-06-16 02:06:18,2017-06-16 06:06:17,NULL,2
+200,Fire Iridium / Persimmon,,,,0,,,1,,2017-06-16 02:06:39,2017-06-16 06:06:39,NULL,2
+201,Black Iridium / Persimmon,,,,0,,,1,,2017-06-16 02:06:58,2017-06-16 06:06:58,NULL,2
+202,Black Iridium Polarized / Persimmon,,,,0,,,1,,2017-06-16 02:07:24,2017-06-16 06:07:23,NULL,2
+203,G30 / Persimmon,,,,0,,,1,,2017-06-16 02:07:52,2017-06-16 06:07:52,NULL,2
+204,OO Red Iridium Polarized / G40,,,,0,,,1,,2017-06-16 02:08:56,2017-06-16 06:08:55,NULL,2
+205,OO Black Iridium Polarized / Persimmon,,,,0,,,1,,2017-06-16 02:09:16,2017-06-16 06:09:15,NULL,2
+206,Black Iridium / Clear,,,,0,,,1,,2017-06-16 02:09:36,2017-06-16 06:09:36,NULL,2
+207,OO Black Iridium Polarized / VR50,,,,0,,,1,,2017-06-16 02:10:02,2017-06-16 06:10:02,NULL,2
+208,Slate Iridium / G40,,,,0,,,1,,2017-06-16 02:10:39,2017-06-16 06:10:39,NULL,2
+209,VR50 / Slate Iridium,,,,0,,,1,,2017-06-16 02:11:41,2017-06-16 06:11:40,NULL,2
+210,Tungsten Iridium / VR50,,,,0,,,1,,2017-06-16 02:12:03,2017-06-16 06:12:03,NULL,2
+211,Jade Iridium / H.I. Persimmon,,,,0,,,1,,2017-06-16 02:12:24,2017-06-16 06:12:23,NULL,2
+212,Fire Iridium Polarized / Persimmon,,,,0,,,1,,2017-06-16 02:12:45,2017-06-16 06:12:44,NULL,2
+213,Smoke,,,,0,,,1,,2017-06-16 02:15:08,2017-06-16 06:15:08,NULL,2
+214,Gold,,,,0,,,1,,2017-06-16 02:16:04,2017-06-16 06:16:03,NULL,2
+215,Goldfire,,,,0,,,1,,2017-06-16 02:17:32,2017-06-16 06:17:32,NULL,2
+216,HDO-3D,,,,0,,,1,,2017-06-16 02:23:34,2017-06-16 06:23:34,NULL,2
+217,3D-HDO,,,,0,,,1,,2017-06-16 02:39:40,2017-06-16 06:39:39,NULL,2
+218,3D,,,,0,,,1,,2017-06-16 05:16:36,2017-06-16 09:16:36,NULL,2
+219,n/a,,,,0,,,1,,2017-06-16 12:53:40,2017-06-16 16:53:39,NULL,2
+220,Grey / G30 Titanium,,,,0,,,1,,2017-06-16 12:53:43,2017-06-16 16:53:43,NULL,2
+221,H.I. Yellow / Black Iridium,,,,0,,,1,,2017-06-16 12:54:04,2017-06-16 16:54:04,NULL,2
+222,Persimmon / Black Iridium,,,,0,,,1,,2017-06-16 12:55:34,2017-06-16 16:55:33,NULL,2
+223,G40 Photochromatic,,,,0,,,1,,2017-06-16 13:10:50,2017-06-16 17:10:50,NULL,2
+224,Black Persimmon Iridium Photochromatic,,,,0,,,1,,2017-06-16 13:12:41,2017-06-16 17:12:40,NULL,2
+225,Black Persimmon Iridium Photochromic,,,,0,,,1,,2017-06-16 13:29:28,2017-06-16 17:29:28,NULL,2
+226,G30,,,,0,,,1,,2017-06-16 13:30:38,2017-06-16 17:30:38,NULL,2
+227,VR50 Photochromatic Vented,,,,0,,,1,,2017-06-16 13:32:02,2017-06-16 17:32:02,NULL,2
+228,Jade Iridium / H.I. Yellow,,,,0,,,1,,2017-06-16 13:33:56,2017-06-16 17:33:56,NULL,2
+229,Black Iridium Polarized / G40,,,,0,,,1,,2017-06-16 13:34:36,2017-06-16 17:34:35,NULL,2
+230,+Red Iridium,,,,0,,,1,,2017-06-17 05:53:44,2017-06-17 09:53:48,NULL,2
+231,Grey / Clear / G26 Iridium (New Hybrid),,,,0,,,1,,2017-06-17 05:54:55,2017-06-17 09:54:58,NULL,2
+232,Grey / Clear / G26 Iridium (Strike),,,,0,,,1,,2017-06-17 05:55:24,2017-06-17 09:55:28,NULL,2
+233,Grey / Clear (Heater),,,,0,,,1,,2017-06-17 05:55:42,2017-06-17 09:55:45,NULL,2
+234,Grey / Clear (New Hybrid),,,,0,,,1,,2017-06-17 05:55:55,2017-06-17 09:55:59,NULL,2
+235,Grey / Clear (Strike),,,,0,,,1,,2017-06-17 05:56:06,2017-06-17 09:56:09,NULL,2
+236,Grey / Persimmon / Clear,,,,0,,,1,,2017-06-17 05:56:24,2017-06-17 09:56:27,NULL,2
+237,Grey / Persimmon / Clear (Strike),,,,0,,,1,,2017-06-17 05:56:44,2017-06-17 09:56:47,NULL,2
+238,Grey / VR28 / Clear (New Hybrid),,,,0,,,1,,2017-06-17 05:56:54,2017-06-17 09:56:57,NULL,2
+239,Grey / VR28 / Clear (Strike),,,,0,,,1,,2017-06-17 05:57:05,2017-06-17 09:57:08,NULL,2
+240,Grey / Clear,,,,0,,,1,,2017-06-17 05:57:29,2017-06-17 09:57:32,NULL,2
+241,Laser Lens / Grey / Clear,,,,0,,,1,,2017-06-17 05:58:41,2017-06-17 09:58:44,NULL,2
+242,G26 / H.I. Persimmon,,,,0,,,1,,2017-06-17 05:59:09,2017-06-17 09:59:12,NULL,2
+243,Gold Iridium Vented / G30,,,,0,,,1,,2017-06-17 05:59:57,2017-06-17 10:00:00,NULL,2
+244,Black Iridium / G40,,,,0,,,1,,2017-06-17 06:01:34,2017-06-17 10:01:38,NULL,2
+245,G26 / VR50 / Clear (Heater),,,,0,,,1,,2017-06-17 06:02:22,2017-06-17 10:02:25,NULL,2
+246,G26 / VR50 / Clear (Strike),,,,0,,,1,,2017-06-17 06:02:46,2017-06-17 10:02:50,NULL,2
+247,G26 / VR50 / Clear (Sweep),,,,0,,,1,,2017-06-17 06:03:20,2017-06-17 10:03:23,NULL,2
+248,Gold Iridium / Slate Iridium / G30 (Heater Vented),,,,0,,,1,,2017-06-17 06:03:49,2017-06-17 10:03:53,NULL,2
+249,Gold Iridium / Slate Iridium / G30 (New Hybrid Vented),,,,0,,,1,,2017-06-17 06:04:10,2017-06-17 10:04:13,NULL,2
+250,Gold Iridium / Slate Iridium / G30 (Strike Vented),,,,0,,,1,,2017-06-17 06:04:33,2017-06-17 10:04:36,NULL,2
+251,Gold Iridium / Slate Iridium / G30 (Sweep Vented),,,,0,,,1,,2017-06-17 06:04:55,2017-06-17 10:04:58,NULL,2
+252,Black Iridium (Heater),,,,0,,,1,,2017-06-17 06:05:16,2017-06-17 10:05:19,NULL,2
+253,Black Iridium (Strike),,,,0,,,1,,2017-06-17 06:05:45,2017-06-17 10:05:48,NULL,2
+254,Black Iridium (Sweep),,,,0,,,1,,2017-06-17 06:06:05,2017-06-17 10:06:08,NULL,2
+255,Gold Iridium / G30 (Heater Vented),,,,0,,,1,,2017-06-17 06:06:54,2017-06-17 10:06:58,NULL,2
+256,Gold Iridium / G30 (Strike Vented),,,,0,,,1,,2017-06-17 06:07:20,2017-06-17 10:07:23,NULL,2
+257,Gold Iridium / G30 (Sweep Vented),,,,0,,,1,,2017-06-17 06:07:46,2017-06-17 10:07:50,NULL,2
+258,Grey / VR28 (Heater),,,,0,,,1,,2017-06-17 06:08:20,2017-06-17 10:08:23,NULL,2
+259,Grey / VR28 (Strike),,,,0,,,1,,2017-06-17 06:08:45,2017-06-17 10:08:48,NULL,2
+260,(Heater),,,,0,,,1,,2017-06-17 06:09:13,2017-06-17 10:09:17,NULL,2
+261,Black Iridium / VR28 (Heater),,,,0,,,1,,2017-06-17 06:10:36,2017-06-17 10:10:39,NULL,2
+262,Black Iridium / VR28 (Hybrid),,,,0,,,1,,2017-06-17 06:11:00,2017-06-17 10:11:03,NULL,2
+263,Black Iridium / VR28 (Strike),,,,0,,,1,,2017-06-17 06:11:30,2017-06-17 10:11:33,NULL,2
+264,Black Iridium / VR28 (Sweep),,,,0,,,1,,2017-06-17 06:11:52,2017-06-17 10:11:55,NULL,2
+265,Amber Black Iridium Polarized / VR28 Gold Iridium Polarized / Grey Polarized,,,,0,,,1,,2017-06-17 06:12:19,2017-06-17 10:12:22,NULL,2
+266,Titanium Iridium Polarized / Ice Polarized / VR28 Polarized,,,,0,,,1,,2017-06-17 06:12:43,2017-06-17 10:12:47,NULL,2
+267,Bronze Polarized / VR28 Polarized / Grey Polarized,,,,0,,,1,,2017-06-17 06:13:10,2017-06-17 10:13:13,NULL,2
+268,Black Iridium Polarized / Fire Polarized / VR28 Polarized,,,,0,,,1,,2017-06-17 06:14:01,2017-06-17 10:14:04,NULL,2
+269,"VR28, Black Iridium, H.I. Persimmon",,,,0,,,1,,2017-06-17 06:14:31,2017-06-17 10:14:34,NULL,2
+270,Fire / G30 / Slate Iridium,,,,0,,,1,,2017-06-17 06:15:24,2017-06-17 10:15:28,NULL,2
+271,G30 / Persimmon / Clear,,,,0,,,1,,2017-06-17 06:16:14,2017-06-17 10:16:17,NULL,2
+272,Grey / G20 / Persimmon,,,,0,,,1,,2017-06-17 06:16:35,2017-06-17 10:16:39,NULL,2
+273,Bronze / Persimmon / Clear,,,,0,,,1,,2017-06-17 06:16:54,2017-06-17 10:16:57,NULL,2
+274,Warm Grey,,,,0,,,1,,2017-06-17 06:18:30,2017-06-17 10:18:33,NULL,2
+275,Dark Bronze,,,,0,,,1,,2017-06-17 06:19:34,2017-06-17 10:19:37,NULL,2
+276,Gold Iridium / Persimmon / G30,,,,0,,,1,,2017-06-17 06:19:50,2017-06-17 10:19:53,NULL,2
+277,VR28 Black Iridium / Clear / Persimmon,,,,0,,,1,,2017-06-17 06:20:20,2017-06-17 10:20:23,NULL,2
+278,Slate Iridium / G30 Iridium / H.I. Blue,,,,0,,,1,,2017-06-17 06:20:30,2017-06-17 10:20:34,NULL,2
+279,Ruby Quartz,,,,0,,,1,,2017-06-19 04:42:00,2017-06-19 08:41:59,NULL,2
+280,Night Vision,,,,0,,,1,,2017-06-19 04:48:17,2017-06-19 08:48:16,NULL,2
+281,Neutral Grey,,,,0,,,1,,2017-06-19 05:11:07,2017-06-19 09:11:07,NULL,2

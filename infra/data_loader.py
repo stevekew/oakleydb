@@ -226,7 +226,7 @@ elif loader_mode == Mode.enrichmodels:
     style_dal = StyleDal(cnx_pool)
     lens_dal = LensDal(cnx_pool)
 
-    styles = {}
+    # styles = [style_dal.get_style('Bottle Rocket')]
     if len(process_family) > 0:
         logger.info('Loading glasses styles from database for family [{}]'.format(process_family))
         styles = style_dal.get_styles_for_family(process_family)
